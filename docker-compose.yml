@@ -12,6 +12,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/account_service?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: admin
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
     depends_on:
       - mysql-db
     networks:
@@ -36,7 +37,9 @@ services:
       context: ./api-gateway
       dockerfile: Dockerfile
     ports:
-      - "8762:8080"
+      - "8762:8761"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
     networks:
       - backend
     container_name: api-gateway
@@ -46,7 +49,7 @@ services:
       context: ./discovery-service
       dockerfile: Dockerfile
     ports:
-      - "8761:8080"
+      - "8761:8761"
     networks:
       - backend
     container_name: discovery-service
