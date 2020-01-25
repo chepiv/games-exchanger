@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+      - "8000:8000"
     environment: # Pass environment variables to the service
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/account_service?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
       SPRING_DATASOURCE_USERNAME: root
@@ -37,7 +38,7 @@ services:
       context: ./api-gateway
       dockerfile: Dockerfile
     ports:
-      - "8762:8761"
+      - "8762:8762"
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
     networks:
