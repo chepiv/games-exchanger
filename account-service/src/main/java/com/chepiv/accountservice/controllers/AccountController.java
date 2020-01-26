@@ -44,14 +44,20 @@ public class AccountController {
     @PostMapping(value = "/login")
     public Boolean login(@RequestBody Account account) {
         Account accountDb = accountCommonService.getByLogin(account.getLogin());
-        return accountDb.getPassword().equals(account.getPassword());
+        return accountDb.getPassword().equals(accountCommonService.hashPassword(account.getPassword()));
     }
 
     @RequestMapping("/user")
     public Principal user(HttpServletRequest request) {
         String authToken = request.getHeader("Authorization")
                 .substring("Basic".length()).trim();
-        return () ->  new String(Base64.getDecoder()
+        return () -> new String(Base64.getDecoder()
                 .decode(authToken)).split(":")[0];
+    }
+
+    @GetMapping("/{login}")
+    public ResponseEntity<Account> getUserByLogin(@PathVariable("login") String login) {
+        Account account = accountCommonService.getByLogin(login);
+        return new ResponseEntity<>(account, HttpStatus.OK);
     }
 }

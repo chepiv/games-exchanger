@@ -37,7 +37,7 @@ public class AccountCommonService {
         return accountRepository.findAccountByLogin(login);
     }
 
-    private String hashPassword(String password){
+    public String hashPassword(String password){
         return Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
     }
 }
