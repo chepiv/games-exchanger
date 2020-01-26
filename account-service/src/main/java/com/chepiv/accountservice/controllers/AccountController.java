@@ -41,7 +41,7 @@ public class AccountController {
         return new ResponseEntity<>(accountCommonService.createAccount(account), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(value = "/login")
     public Boolean login(@RequestBody Account account) {
         Account accountDb = accountCommonService.getByLogin(account.getLogin());
         return accountDb.getPassword().equals(account.getPassword());
@@ -54,6 +54,4 @@ public class AccountController {
         return () ->  new String(Base64.getDecoder()
                 .decode(authToken)).split(":")[0];
     }
-
-
 }
