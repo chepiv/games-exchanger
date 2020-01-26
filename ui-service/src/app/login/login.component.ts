@@ -22,14 +22,14 @@ export class LoginComponent implements OnInit {
     sessionStorage.setItem('token', '');
   }
 
-  login() {
-    const url = 'http://localhost:8080/login';
+  sendLoginRequest() {
+    const url = 'http://localhost:8762/accounts/login';
     this.http.post<Observable<boolean>>(url, {
-      userName: this.model.username,
+      login: this.model.login,
       password: this.model.password
     }).subscribe(isValid => {
       if (isValid) {
-        sessionStorage.setItem('token', btoa(this.model.username + ':' + this.model.password));
+        sessionStorage.setItem('token', btoa(this.model.login + ':' + this.model.password));
         this.router.navigate(['']);
       } else {
         alert('Authentication failed.');
