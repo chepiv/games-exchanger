@@ -1,11 +1,19 @@
-<div>
-  <img src="{{account.imageUrl}}" alt="Image">
-  <img src="https://img.favpng.com/17/7/13/computer-icons-icon-design-user-png-favpng-uXME5zjHwHTJNs2Kzf5LvgFDR.jpg" alt="Image" style="width: 10% ; height: 10%">
-  <p>Login</p>
-  <p>{{account.login}}</p>
-  <p>Email</p>
-  <p>{{account.email}}</p>
-  <p>Name</p>
-  <p>{{account.name}}</p>
-
+<div id="user-details" style="margin: 5%">
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{account.imageUrl}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <h5 class="card-title">Login</h5>
+      <li class="list-group-item">{{account.login}}</li>
+      <h5 class="card-title">Email</h5>
+      <li class="list-group-item">{{account.email}}</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
 </div>
