@@ -35,6 +35,9 @@ public class Account {
     @Column
     private String surname;
 
+    @Column
+    private String imageUrl;
+
     @ManyToOne
     private Country country;
 

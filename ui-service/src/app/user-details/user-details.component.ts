@@ -12,7 +12,7 @@ import {logger} from 'codelyzer/util/logger';
 })
 export class UserDetailsComponent implements OnInit {
 
-  account: Account;
+  account: Account = {} as Account;
   loginRequestParam: string;
 
   constructor(private route: ActivatedRoute,
@@ -28,12 +28,9 @@ export class UserDetailsComponent implements OnInit {
   getUserByLogin() {
     const url = 'http://localhost:8762/accounts/' + this.loginRequestParam;
     this.http.get<Account>(url)
-      .subscribe((data: Account) => this.account = {
-        login: data.login,
-        email: data.email,
-        name: data.name,
-        surname: data.surname,
-        country: data.country
+      .subscribe((data: Account) => {
+        console.log(data);
+        this.account = data;
       });
   }
 
