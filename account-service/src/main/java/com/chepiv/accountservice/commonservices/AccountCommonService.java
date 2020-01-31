@@ -40,4 +40,5 @@ public class AccountCommonService {
     public String hashPassword(String password){
         return Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
     }
+
 }

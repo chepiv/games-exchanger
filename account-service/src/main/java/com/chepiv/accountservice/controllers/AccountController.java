@@ -2,15 +2,20 @@ package com.chepiv.accountservice.controllers;
 
 import com.chepiv.accountservice.commonservices.AccountCommonService;
 import com.chepiv.accountservice.domain.Account;
+import com.netflix.discovery.shared.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chepiv on 04/01/2020.
@@ -47,12 +52,12 @@ public class AccountController {
         return accountDb.getPassword().equals(accountCommonService.hashPassword(account.getPassword()));
     }
 
-    @RequestMapping("/user")
-    public Principal user(HttpServletRequest request) {
-        String authToken = request.getHeader("Authorization")
-                .substring("Basic".length()).trim();
-        return () -> new String(Base64.getDecoder()
-                .decode(authToken)).split(":")[0];
+    @RequestMapping(value = "/user",produces = "application/json")
+    public Map<String,Object> user(OAuth2Authentication user) {
+        HashMap<String, Object> userInfo = new HashMap<>();
+        userInfo.put("user", user.getUserAuthentication().getPrincipal());
+        userInfo.put("authorities", AuthorityUtils.authorityListToSet(user.getUserAuthentication().getAuthorities()));
+        return userInfo;
     }
 
     @GetMapping("/{login}")
