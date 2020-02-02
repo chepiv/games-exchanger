@@ -2,7 +2,6 @@ package com.chepiv.accountservice.controllers;
 
 import com.chepiv.accountservice.commonservices.AccountCommonService;
 import com.chepiv.accountservice.domain.Account;
-import com.netflix.discovery.shared.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +9,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +48,7 @@ public class AccountController {
         return accountDb.getPassword().equals(accountCommonService.hashPassword(account.getPassword()));
     }
 
-    @RequestMapping(value = "/user",produces = "application/json")
+    @GetMapping(value = "/user",produces = "application/json")
     public Map<String,Object> user(OAuth2Authentication user) {
         HashMap<String, Object> userInfo = new HashMap<>();
         userInfo.put("user", user.getUserAuthentication().getPrincipal());

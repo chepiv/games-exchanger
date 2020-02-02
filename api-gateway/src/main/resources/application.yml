@@ -12,3 +12,4 @@ zuul:
     accounts:
       path: /accounts/**
       url: http://account-service:8080/accounts/
+      sensitive-headers: Cookie,Set-Cookie
