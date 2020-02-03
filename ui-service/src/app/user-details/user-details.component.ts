@@ -18,11 +18,15 @@ export class UserDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient) {
-    this.loginRequestParam = localStorage.getItem('currentLogin');
+    this.loginRequestParam = sessionStorage.getItem('currentLogin');
   }
 
   ngOnInit() {
-    this.getUserByLogin();
+    if (this.loginRequestParam == null) {
+      this.router.navigate(['']);
+    } else {
+      this.getUserByLogin();
+    }
   }
 
   getUserByLogin() {

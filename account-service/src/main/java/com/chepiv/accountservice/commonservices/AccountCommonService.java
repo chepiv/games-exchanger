@@ -1,9 +1,15 @@
 package com.chepiv.accountservice.commonservices;
 
 import com.chepiv.accountservice.domain.Account;
+import com.chepiv.accountservice.domain.AccountPrincipal;
 import com.chepiv.accountservice.repository.AccountRepository;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -15,13 +21,15 @@ import java.util.List;
  * Github:chepiv
  */
 @Service
-public class AccountCommonService {
+public class AccountCommonService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public AccountCommonService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
+        passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public List<Account> getAll() {
@@ -29,7 +37,7 @@ public class AccountCommonService {
     }
 
     public Account createAccount(Account account) {
-        account.setPassword(hashPassword(account.getPassword()));
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
         return accountRepository.save(account);
     }
 
@@ -40,5 +48,12 @@ public class AccountCommonService {
     public String hashPassword(String password){
         return Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        Account login = getByLogin(s);
+        return new AccountPrincipal(login);
+    }
+
 
 }
