@@ -37,7 +37,7 @@ public class AccountController {
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
         return new ResponseEntity<>(accountCommonService.createAccount(account), HttpStatus.OK);
     }
