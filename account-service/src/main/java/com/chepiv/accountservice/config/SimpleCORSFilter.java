@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SimpleCORSFilter implements Filter {
+public class SimpleCORSFilter implements Filter {// TODO doesn't work
 
 private final Logger log = LoggerFactory.getLogger(SimpleCORSFilter.class);
 

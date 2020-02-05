@@ -37,9 +37,10 @@ export class LoginComponent implements OnInit {
       .set('grant_type', 'webclient')
       .set('grant_type', 'password');
 
-    this.http.post('http://localhost:8080/' + 'oauth/token', body, {headers})
-      .subscribe(data => this.token = data.token,
-        err => alert('invalid Creadtilas'));
+    this.http.post('http://localhost:8762/' + 'oauth/token', body, {headers})
+      .subscribe(data => this.token = data,
+        err => alert('invalid Creadtilas'),
+        () => console.log(this.token));
 
 
     // this.http.post<Observable<boolean>>(url, {
