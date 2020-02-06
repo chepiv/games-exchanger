@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
     this.http.post('http://localhost:8762/' + 'oauth/token', body, {headers})
       .subscribe(data => this.token = data,
-        err => alert('invalid Creadtilas'),
+        err => alert('Invalid Credentials'),
         () => console.log(this.token));
 
 
