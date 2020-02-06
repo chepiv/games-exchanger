@@ -33,6 +33,7 @@ public class ApiGatewayApplication {
         config.addAllowedMethod("DELETE");
         config.addAllowedMethod("PATCH");
         source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/accounts/**", config);
         return new CorsFilter(source);
     }
 

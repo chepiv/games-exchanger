@@ -10,8 +10,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 public class GatewayConfiguration extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests().
-                antMatchers("/oauth/**").
+        http.
+                cors()
+                .and()
+                .authorizeRequests().
+                antMatchers("/oauth/**","/accounts/register").
                 permitAll().
                 antMatchers("/**").
                 authenticated();

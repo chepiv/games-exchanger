@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Account} from './account';
-import {Observable} from 'rxjs';
-import {logger} from 'codelyzer/util/logger';
 
 @Component({
   selector: 'app-user-details',
@@ -13,16 +11,16 @@ import {logger} from 'codelyzer/util/logger';
 export class UserDetailsComponent implements OnInit {
 
   account: Account = {} as Account;
-  loginRequestParam: string;
+  token: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient) {
-    this.loginRequestParam = sessionStorage.getItem('currentLogin');
+    this.token = sessionStorage.getItem('token');
   }
 
   ngOnInit() {
-    if (this.loginRequestParam == null) {
+    if (this.token == null) {
       this.router.navigate(['']);
     } else {
       this.getUserByLogin();
@@ -30,11 +28,19 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getUserByLogin() {
-    const url = 'http://localhost:8762/accounts/' + this.loginRequestParam;
-    this.http.get<Account>(url)
-      .subscribe((data: Account) => {
+    const url = 'http://localhost:8762/accounts/user';
+    // const headers = {
+    //   Authorization: 'Bearer  ' + JSON.parse(this.token),
+    // };
+    // const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.token);
+    // const headers = new Headers({
+    //   'Content-Type': 'application/json',
+    //   Authorization: this.token
+    // });
+    this.http.get<Account>(url, {headers})
+      .subscribe((data) => {
         console.log(data);
-        this.account = data;
+        // this.account = data;
       });
   }
 

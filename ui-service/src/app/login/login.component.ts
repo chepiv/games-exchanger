@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
+import {Token} from './token';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs';
 export class LoginComponent implements OnInit {
 
   model: any = {};
-  token: any = {};
+  token: Token = {} as Token;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    sessionStorage.setItem('token', '');
+
   }
 
   sendLoginRequest() {
@@ -38,9 +39,13 @@ export class LoginComponent implements OnInit {
       .set('grant_type', 'password');
 
     this.http.post('http://localhost:8762/' + 'oauth/token', body, {headers})
-      .subscribe(data => this.token = data,
+      .subscribe((data: Token) => this.token = data,
         err => alert('Invalid Credentials'),
-        () => console.log(this.token));
+        () => {
+          console.log(this.token);
+          sessionStorage.setItem('token', this.token.access_token);
+          this.router.navigate(['/user-details']);
+        });
 
 
     // this.http.post<Observable<boolean>>(url, {
