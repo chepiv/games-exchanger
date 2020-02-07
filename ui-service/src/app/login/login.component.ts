@@ -46,19 +46,5 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('token', this.token.access_token);
           this.router.navigate(['/user-details']);
         });
-
-
-    // this.http.post<Observable<boolean>>(url, {
-    //   login: this.model.login,
-    //   password: this.model.password
-    // }).subscribe(isValid => {
-    //   if (isValid) {
-    //     sessionStorage.setItem('token', btoa(this.model.login + ':' + this.model.password));
-    //     sessionStorage.setItem('currentLogin', this.model.login);
-    //     this.router.navigate(['/user-details']);
-    //   } else {
-    //     alert('Authentication failed.');
-    //   }
-    // });
   }
 }
