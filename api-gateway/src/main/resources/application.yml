@@ -17,3 +17,8 @@ zuul:
     oauth:
       path: /oauth/**
       url: http://account-service:8080/oauth
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.cloud.security: DEBUG
+

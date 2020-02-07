@@ -30,4 +30,6 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
+ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=8760,server=y,suspend=n
+
 ENTRYPOINT ["java","-cp","app:app/lib/*","com.chepiv.apigateway.ApiGatewayApplication"]

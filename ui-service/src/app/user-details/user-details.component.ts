@@ -30,14 +30,18 @@ export class UserDetailsComponent implements OnInit {
   getUserByLogin() {
     const url = 'http://localhost:8762/accounts/user';
     // const headers = {
-    //   Authorization: 'Bearer  ' + JSON.parse(this.token),
     // };
     // const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.token);
+    //   Authorization: 'Bearer  ' + JSON.parse(this.token),
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer' + this.token
+    });
     // const headers = new Headers({
     //   'Content-Type': 'application/json',
     //   Authorization: this.token
     // });
-    this.http.get<Account>(url, {headers})
+
+    this.http.get<Account>(url, {headers: reqHeader})
       .subscribe((data) => {
         console.log(data);
         // this.account = data;

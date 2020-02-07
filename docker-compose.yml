@@ -39,6 +39,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8762:8762"
+      - "8760:8760"
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
     networks:
