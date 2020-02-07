@@ -12,8 +12,9 @@ public class GatewayConfiguration extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.requestMatcher(EndpointRequest.toAnyEndpoint()).authorizeRequests((requests) ->
-                requests.anyRequest().permitAll());
+        http
+                .requestMatcher(EndpointRequest.toAnyEndpoint()).cors().and()
+                .authorizeRequests((requests) -> requests.anyRequest().permitAll());
     }
 
 
