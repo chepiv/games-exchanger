@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,7 +39,17 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("accounts/register", "accounts/login", "oauth/token");
+        web.ignoring().antMatchers("/accounts/register", "accounts/login", "oauth/token");
+    }
+
+    @Override
+    public void configure(final HttpSecurity http) throws Exception {
+        http.
+                authorizeRequests().
+                antMatchers("/oauth/**","/accounts/register").
+                permitAll().
+                anyRequest().
+                authenticated();
     }
 }
 
