@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Account} from './account';
+import {Account} from '../model/account';
 
 @Component({
   selector: 'app-user-details',

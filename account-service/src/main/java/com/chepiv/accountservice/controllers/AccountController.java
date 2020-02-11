@@ -58,9 +58,10 @@ public class AccountController {
     }
 
     @GetMapping(value = "/user-details",produces = "application/json")
-    public Account userDetails(OAuth2Authentication user) {
+    public ResponseEntity<Account> userDetails(OAuth2Authentication user) {
         AccountPrincipal principal = (AccountPrincipal) user.getUserAuthentication().getPrincipal();
-        return accountCommonService.getByLogin(principal.getUsername());
+        Account account = accountCommonService.getByLogin(principal.getUsername());
+        return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
     @GetMapping("/{login}")
