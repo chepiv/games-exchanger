@@ -28,7 +28,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getUserByLogin() {
-    const url = 'http://localhost:8762/accounts/user';
+    const url = 'http://localhost:8762/accounts/user-details';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -36,7 +36,7 @@ export class UserDetailsComponent implements OnInit {
     this.http.get<Account>(url, {headers: reqHeader})
       .subscribe((data) => {
         console.log(data);
-        // this.account = data;
+        this.account = data;
       });
   }
 

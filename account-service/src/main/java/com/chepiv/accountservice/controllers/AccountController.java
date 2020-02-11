@@ -2,6 +2,7 @@ package com.chepiv.accountservice.controllers;
 
 import com.chepiv.accountservice.commonservices.AccountCommonService;
 import com.chepiv.accountservice.domain.Account;
+import com.chepiv.accountservice.domain.AccountPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +55,12 @@ public class AccountController {
         userInfo.put("user", user.getUserAuthentication().getPrincipal());
         userInfo.put("authorities", AuthorityUtils.authorityListToSet(user.getUserAuthentication().getAuthorities()));
         return userInfo;
+    }
+
+    @GetMapping(value = "/user-details",produces = "application/json")
+    public Account userDetails(OAuth2Authentication user) {
+        AccountPrincipal principal = (AccountPrincipal) user.getUserAuthentication().getPrincipal();
+        return accountCommonService.getByLogin(principal.getUsername());
     }
 
     @GetMapping("/{login}")

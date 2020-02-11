@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
         () => {
           console.log(this.token);
           sessionStorage.setItem('token', this.token.access_token);
+          sessionStorage.setItem('authorized', 'true');
           this.router.navigate(['/user-details']);
         });
   }
