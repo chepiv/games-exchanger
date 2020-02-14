@@ -2,6 +2,16 @@ version: '3'
 
 services:
 
+  discovery-service:
+    build:
+      context: ./discovery-service
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - backend
+    container_name: discovery-service
+
   account-service:
     build:
       context: ./account-service
@@ -16,6 +26,7 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
     depends_on:
       - mysql-db
+      - discovery-service
     networks:
       - backend
     container_name: account-service
@@ -29,6 +40,8 @@ services:
       MYSQL_ROOT_PASSWORD: admin
     ports:
       - "3306:3306"
+    depends_on:
+      - discovery-service
     networks:
       - backend
     container_name: db-account-service
@@ -42,19 +55,25 @@ services:
       - "8760:8760"
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
     networks:
       - backend
     container_name: api-gateway
 
-  discovery-service:
+  storage-service:
     build:
-      context: ./discovery-service
+      context: ./storage-service
       dockerfile: Dockerfile
     ports:
-      - "8761:8761"
+      - "5555:5550"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
     networks:
       - backend
-    container_name: discovery-service
+    container_name: storage-service
 
 
 networks:
