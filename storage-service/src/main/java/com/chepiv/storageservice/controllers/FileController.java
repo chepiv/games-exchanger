@@ -27,8 +27,12 @@ import java.util.stream.Collectors;
 public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
+    private final FileStorageService fileStorageService;
+
     @Autowired
-    private FileStorageService fileStorageService;
+    public FileController(FileStorageService fileStorageService) {
+        this.fileStorageService = fileStorageService;
+    }
 
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
@@ -41,6 +45,11 @@ public class FileController {
 
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "test";
     }
 
     @PostMapping("/uploadMultipleFiles")
