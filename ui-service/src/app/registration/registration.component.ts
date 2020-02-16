@@ -30,7 +30,7 @@ export class RegistrationComponent implements OnInit {
     formData.append('file', this.selectedFiles.item(0));
 
 
-    this.http.post('http://localhost:8080/' + 'accounts/register', formData)
+    this.http.post('http://localhost:8762/' + 'accounts/register', formData)
       .subscribe((data: any) => console.log(data),
         err => alert('Unable to register'),
         () => {

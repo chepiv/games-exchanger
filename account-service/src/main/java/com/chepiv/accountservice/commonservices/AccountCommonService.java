@@ -1,5 +1,7 @@
 package com.chepiv.accountservice.commonservices;
 
+import com.chepiv.accountservice.clients.StorageClient;
+import com.chepiv.accountservice.clients.reponsedata.UploadFileResponse;
 import com.chepiv.accountservice.domain.Account;
 import com.chepiv.accountservice.domain.AccountPrincipal;
 import com.chepiv.accountservice.repository.AccountRepository;
@@ -27,10 +29,12 @@ public class AccountCommonService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
+    private final StorageClient storageClient;
 
     @Autowired
-    public AccountCommonService(AccountRepository accountRepository) {
+    public AccountCommonService(AccountRepository accountRepository, StorageClient storageClient) {
         this.accountRepository = accountRepository;
+        this.storageClient = storageClient;
         passwordEncoder = new BCryptPasswordEncoder();
     }
 
@@ -41,7 +45,8 @@ public class AccountCommonService implements UserDetailsService {
     public Account createAccount(Account account, MultipartFile file) {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         if (Objects.nonNull(file)) {
-            System.out.println(file);
+            UploadFileResponse uploadFileResponse = storageClient.uploadFile(file);
+            account.setImageUrl(uploadFileResponse.getFileDownloadUri());
         }
         return accountRepository.save(account);
     }
