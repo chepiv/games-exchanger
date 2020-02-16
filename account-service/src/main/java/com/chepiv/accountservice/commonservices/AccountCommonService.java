@@ -7,14 +7,18 @@ import com.chepiv.accountservice.domain.AccountPrincipal;
 import com.chepiv.accountservice.repository.AccountRepository;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
@@ -42,10 +46,19 @@ public class AccountCommonService implements UserDetailsService {
         return accountRepository.findAll();
     }
 
-    public Account createAccount(Account account, MultipartFile file) {
+    public Account createAccount(Account account, MultipartFile file) throws IOException {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         if (Objects.nonNull(file)) {
-            UploadFileResponse uploadFileResponse = storageClient.uploadFile(file);
+            MultiValueMap<String, Object> multiValueMap = new LinkedMultiValueMap<>();
+            ByteArrayResource contentsAsResource = new ByteArrayResource(file.getBytes()) {
+                @Override
+                public String getFilename() {
+                    return file.getOriginalFilename();
+                }
+            };
+            multiValueMap.add("file", contentsAsResource);
+            multiValueMap.add("fileType", file.getContentType());
+            UploadFileResponse uploadFileResponse = storageClient.uploadFile(multiValueMap);
             account.setImageUrl(uploadFileResponse.getFileDownloadUri());
         }
         return accountRepository.save(account);
