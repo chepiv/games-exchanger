@@ -11,6 +11,7 @@ import {HttpClient} from '@angular/common/http';
 export class RegistrationComponent implements OnInit {
   account: Account = {} as Account;
   fileToUpload: File;
+  selectedFiles: FileList;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +27,7 @@ export class RegistrationComponent implements OnInit {
 
     const formData = new FormData();
     formData.append('account', JSON.stringify(this.account));
-    formData.append('file', this.fileToUpload);
+    formData.append('file', this.selectedFiles.item(0));
 
 
     this.http.post('http://localhost:8080/' + 'accounts/register', formData)
@@ -35,6 +36,10 @@ export class RegistrationComponent implements OnInit {
         () => {
           this.router.navigate(['/login']);
         });
+  }
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
   }
 
 }

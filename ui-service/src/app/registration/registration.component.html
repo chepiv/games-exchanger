@@ -28,7 +28,7 @@
     </div>
     <div class="form-group">
       <label for="file">Profile image</label>
-      <input type="file" class="form-control-file" id="file" name="file" [(ngModel)]="fileToUpload">
+      <input type="file" class="form-control-file" id="file" name="file" (change)="selectFile($event)">
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
   </form>
