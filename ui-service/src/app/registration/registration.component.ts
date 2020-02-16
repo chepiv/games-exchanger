@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Account} from '../model/account';
-import {Token} from '../login/token';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 
@@ -11,22 +10,31 @@ import {HttpClient} from '@angular/common/http';
 })
 export class RegistrationComponent implements OnInit {
   account: Account = {} as Account;
+  fileToUpload: File;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.http.post('http://localhost:8762/' + 'accounts/register', this.account)
+
+    const formData = new FormData();
+    formData.append('account', JSON.stringify(this.account));
+    formData.append('file', this.fileToUpload);
+
+
+    this.http.post('http://localhost:8080/' + 'accounts/register', formData)
       .subscribe((data: any) => console.log(data),
         err => alert('Unable to register'),
         () => {
           this.router.navigate(['/login']);
         });
   }
+
 }

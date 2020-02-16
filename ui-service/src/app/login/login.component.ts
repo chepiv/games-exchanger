@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {Token} from './token';
 
 @Component({
@@ -18,7 +17,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
 

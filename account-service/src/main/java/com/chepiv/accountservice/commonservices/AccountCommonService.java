@@ -11,9 +11,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by chepiv on 05/01/2020.
@@ -36,8 +38,11 @@ public class AccountCommonService implements UserDetailsService {
         return accountRepository.findAll();
     }
 
-    public Account createAccount(Account account) {
+    public Account createAccount(Account account, MultipartFile file) {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
+        if (Objects.nonNull(file)) {
+            System.out.println(file);
+        }
         return accountRepository.save(account);
     }
 

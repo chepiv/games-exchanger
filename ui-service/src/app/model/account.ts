@@ -6,4 +6,5 @@ export class Account {
   imageUrl: string;
   surname: string;
   country: string;
+  imageFile: File;
 }
