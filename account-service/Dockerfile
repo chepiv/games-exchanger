@@ -4,6 +4,17 @@ FROM openjdk:8-jdk-alpine as build
 # Set the current working directory inside the image
 WORKDIR /app
 
+#RUN echo \
+#    "<settings xmlns='http://maven.apache.org/SETTINGS/1.0.0\' \
+#    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
+#    xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd'> \
+#        <localRepository>/root/Users/myname/.m2/repository</localRepository> \
+#        <interactiveMode>true</interactiveMode> \
+#        <usePluginRegistry>false</usePluginRegistry> \
+#        <offline>false</offline> \
+#    </settings>" \
+#    > /usr/share/maven/conf/settings.xml;
+
 # Copy maven executable to the image
 COPY mvnw .
 COPY .mvn .mvn
