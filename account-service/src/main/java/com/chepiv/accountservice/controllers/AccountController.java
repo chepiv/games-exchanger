@@ -42,7 +42,7 @@ public class AccountController {
     }
 
     @PostMapping(value = "/register", consumes = "multipart/form-data")
-    public ResponseEntity<Account> createAccount(@RequestParam("account") String account, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<Account> createAccount(@RequestParam("account") String account, @RequestParam(value = "file",required = false) MultipartFile file) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Account accountToPass = objectMapper.readValue(account, Account.class);
         return new ResponseEntity<>(accountCommonService.createAccount(accountToPass, file), HttpStatus.OK);

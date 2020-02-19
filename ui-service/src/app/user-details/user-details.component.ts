@@ -12,6 +12,8 @@ export class UserDetailsComponent implements OnInit {
 
   account: Account = {} as Account;
   token: string;
+  profileImage: any;
+  url = 'http://localhost:8762/downloadFile/' + this.account.imageUrl;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -24,6 +26,7 @@ export class UserDetailsComponent implements OnInit {
       this.router.navigate(['']);
     } else {
       this.getUserByLogin();
+
     }
   }
 
@@ -37,7 +40,34 @@ export class UserDetailsComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.account = data;
+        if (this.account.imageUrl != null && this.account.imageUrl !== 'undefined') {
+          this.getImage();
+        }
       });
   }
+
+  getImage() {
+    const url = 'http://localhost:8762/downloadFile/' + this.account.imageUrl;
+    this.http.get(url, {responseType: 'blob'})
+      .subscribe(data => {
+          this.createImageFromBlob(data);
+          this.profileImage = data;
+          console.log(data);
+        }, ((data: any) => console.log(data)),
+      );
+
+  }
+
+  createImageFromBlob(image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.profileImage = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
 
 }

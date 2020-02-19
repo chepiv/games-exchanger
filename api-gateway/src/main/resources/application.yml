@@ -17,6 +17,9 @@ zuul:
     oauth:
       path: /oauth/**
       url: http://account-service:8080/oauth
+    storage:
+      path: /**
+      url: http://storage-service:5858
 logging:
   level:
     org.springframework.security: DEBUG

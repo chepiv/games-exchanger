@@ -58,7 +58,7 @@ export class RegistrationComponent implements OnInit {
 
     const byteArray = new Uint8Array(byteNumbers);
 
-    return new File([byteArray], this.fileName);
+    return new File([byteArray], this.account.name + '_' + this.fileName);
   }
 
   selectFile(event) {

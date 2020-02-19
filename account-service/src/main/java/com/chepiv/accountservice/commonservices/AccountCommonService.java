@@ -59,7 +59,7 @@ public class AccountCommonService implements UserDetailsService {
             multiValueMap.add("file", contentsAsResource);
             multiValueMap.add("fileType", file.getContentType());
             UploadFileResponse uploadFileResponse = storageClient.uploadFile(multiValueMap);
-            account.setImageUrl(uploadFileResponse.getFileDownloadUri());
+            account.setImageUrl(uploadFileResponse.getFileName());
         }
         return accountRepository.save(account);
     }
