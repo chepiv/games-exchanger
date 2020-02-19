@@ -71,6 +71,8 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
     depends_on:
       - discovery-service
+    volumes:
+      - "${HOME}/storage-files:/app/files"
     networks:
       - backend
     container_name: storage-service
