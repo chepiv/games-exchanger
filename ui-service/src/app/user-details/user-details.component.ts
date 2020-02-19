@@ -42,6 +42,8 @@ export class UserDetailsComponent implements OnInit {
         this.account = data;
         if (this.account.imageUrl != null && this.account.imageUrl !== 'undefined') {
           this.getImage();
+        } else {
+          this.profileImage = '/assets/default-profile.png';
         }
       });
   }
@@ -53,7 +55,10 @@ export class UserDetailsComponent implements OnInit {
           this.createImageFromBlob(data);
           this.profileImage = data;
           console.log(data);
-        }, ((data: any) => console.log(data)),
+        }, ((data: any) => {
+          console.log(data);
+          this.profileImage = '/assets/default-profile.png';
+        }),
       );
 
   }

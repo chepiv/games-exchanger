@@ -33,9 +33,10 @@ export class RegistrationComponent implements OnInit {
     const formData = new FormData();
     formData.append('account', JSON.stringify(this.account));
 
-    const blob = this.extracted();
-    formData.append('file', blob);
-
+    if (this.croppedImage !== '' && this.croppedImage != null) {
+      const blob = this.extracted();
+      formData.append('file', blob);
+    }
 
     this.http.post('http://localhost:8762/' + 'accounts/register', formData)
       .subscribe((data: any) => console.log(data),
