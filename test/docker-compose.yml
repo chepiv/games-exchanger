@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  mysql-db:
+   image: mysql:8.0.17
+   environment:
+     MYSQL_DATABASE: account_service
+     MYSQL_PASSWORD: admin
+     MYSQL_ROOT_PASSWORD: admin
+   ports:
+     - "3306:3306"
+   container_name: db-account-service1
+
+  offers-db:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_DATABASE: offers_service
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - "3307:3306"
+    container_name: db-offers-service1

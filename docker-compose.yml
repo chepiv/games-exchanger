@@ -77,6 +77,39 @@ services:
       - backend
     container_name: storage-service
 
+  offers-service:
+    build:
+      context: ./offers-service
+      dockerfile: Dockerfile
+    ports:
+      - "7878:7878"
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:mysql://offers-db:3307/offers_service?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
+    depends_on:
+      - offers-db
+      - discovery-service
+    networks:
+      - backend
+    container_name: offers-service
+
+
+  offers-db:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_DATABASE: offers_service
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - "3307:3306"
+    depends_on:
+      - discovery-service
+    networks:
+      - backend
+    container_name: db-offers-service
+
 
 networks:
   backend:
