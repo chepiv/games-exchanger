@@ -41,8 +41,6 @@ services:
       MYSQL_ROOT_PASSWORD: admin
     ports:
       - "3306:3306"
-    depends_on:
-      - discovery-service
     networks:
       - accounts
     container_name: db-account-service
@@ -106,8 +104,6 @@ services:
       MYSQL_ROOT_PASSWORD: admin
     ports:
       - "3307:3306"
-    depends_on:
-      - discovery-service
     networks:
       - offers
     container_name: db-offers-service

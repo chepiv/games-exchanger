@@ -1,22 +1,21 @@
-package com.chepiv.accountservice.domain;
+package com.chepiv.offersservice.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by chepiv on 04/01/2020.
- * Contact: chepurin.ivan@gmail.com
- * Github:chepiv
- */
 @Entity
 @Data
 @NoArgsConstructor
-public class City {
+public class Platform {
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -27,6 +26,7 @@ public class City {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "city")
-    private List<Account> accounts;
+    @OneToMany(mappedBy = "platform")
+    private List<Game> games;
+
 }
