@@ -1,49 +1,27 @@
 #### Stage 1: Build the application
-FROM openjdk:8-jdk-alpine as build
+FROM maven:3.5-jdk-8-alpine as build
 
 # Set the current working directory inside the image
 WORKDIR /app
+ARG M2=${HOME}
+ENV M2=${M2}
 
-#RUN echo \
-#    "<settings xmlns='http://maven.apache.org/SETTINGS/1.0.0\' \
-#    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
-#    xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd'> \
-#        <localRepository>$HOME/.m2/repository</localRepository> \
-#        <interactiveMode>true</interactiveMode> \
-#        <usePluginRegistry>false</usePluginRegistry> \
-#        <offline>false</offline> \
-#    </settings>" \
-#    > /usr/share/maven/conf/settings.xml;
-
-# Copy maven executable to the image
-COPY mvnw .
-COPY .mvn .mvn
-RUN chmod +x mvnw
-# Copy the pom.xml file
-COPY pom.xml .
 
 # Build all the dependencies in preparation to go offline.
 # This is a separate step so the dependencies will be cached unless
 # the pom.xml file has changed.
-RUN ./mvnw dependency:go-offline -B
+#RUN ./mvnw dependency:go-offline -B
+#VOLUME $HOME/.m2/repository/
+#RUN --mount=target=/var/lib/apt/lists,type=cache
 
 # Copy the project source
-COPY src src
+COPY . src
+COPY ${M2}/.m2/repository /root/.m2/repository
 
 # Package the application
-RUN ./mvnw package -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+#RUN mvn package -DskipTests
+#RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+#ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n
 
-#### Stage 2: A minimal docker image with command to run the app
-FROM openjdk:8-jre-alpine
-
-ARG DEPENDENCY=/app/target/dependency
-
-# Copy project dependencies from the build stage
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-
-ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n
-
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.chepiv.accountservice.AccountServiceApplication"]
+#CMD cd src ; mvn spring-boot:run
+CMD echo $M2;
