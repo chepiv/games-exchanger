@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
     environment: # Pass environment variables to the service
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/account_service?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
       SPRING_DATASOURCE_USERNAME: root

@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8761:8761"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
     networks:
       - backend
     container_name: discovery-service
@@ -19,6 +21,8 @@ services:
     ports:
       - "8080:8080"
       - "8000:8000"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
     environment: # Pass environment variables to the service
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/account_service?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
       SPRING_DATASOURCE_USERNAME: root
@@ -52,6 +56,8 @@ services:
     ports:
       - "8762:8762"
       - "8760:8760"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
     depends_on:
@@ -72,6 +78,7 @@ services:
       - discovery-service
     volumes:
       - "${HOME}/storage-files:/app/files"
+      - "${HOME}/.m2:/root/.m2"
     networks:
       - backend
     container_name: storage-service
@@ -82,6 +89,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "7878:7878"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
     environment: # Pass environment variables to the service
       SPRING_DATASOURCE_URL: jdbc:mysql://offers-db:3306/offers_service?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
       SPRING_DATASOURCE_USERNAME: root
