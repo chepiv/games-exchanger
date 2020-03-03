@@ -39,14 +39,14 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/accounts/register", "accounts/login", "oauth/token");
+        web.ignoring().antMatchers("/accounts/register", "accounts/login", "oauth/token","/actuator/**");
     }
 
     @Override
     public void configure(final HttpSecurity http) throws Exception {
         http.
                 authorizeRequests().
-                antMatchers("/oauth/**","/accounts/register").
+                antMatchers("/oauth/**","/accounts/register","/actuator/**").
                 permitAll().
                 anyRequest().
                 authenticated();
