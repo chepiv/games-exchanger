@@ -12,7 +12,7 @@ import java.util.UUID;
  * Github:chepiv
  */
 @Repository
-public interface AccountRepository extends JpaRepository<Account, UUID> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
 
     Account findAccountByLogin(String login);
 }
