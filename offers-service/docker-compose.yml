@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  offers-service:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "7878:7878"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/offers_service?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+    depends_on:
+      - mysql-db
+    networks:
+      - backend
+
+  mysql-db:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_DATABASE: offers_service
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - "3307:3306"
+    networks:
+      - backend
+
+networks:
+  backend:

@@ -2,10 +2,8 @@ package com.chepiv.accountservice.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 /**
  * Created by chepiv on 04/01/2020.

@@ -1,35 +1,29 @@
 package com.chepiv.offersservice.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
+import javax.persistence.MapsId;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class GameAccount {
 
     @EmbeddedId
     private GameAccountPK id;
 
     @ManyToOne
-    @JoinColumn(name = "game_id")
+    @MapsId("gameId")
     private Game game;
 
-
+    public GameAccount(GameAccountPK id) {
+        this.id = id;
+    }
 }
 
-@Embeddable
-@Data
-@NoArgsConstructor
-class GameAccountPK implements Serializable {
-    public Long gameId;
-    public Long accountId;
-}
