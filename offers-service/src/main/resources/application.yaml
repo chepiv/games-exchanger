@@ -30,3 +30,7 @@ logging:
     org.springframework.security: DEBUG
     org.springframework.cloud.security: DEBUG
     org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:8901/auth/user
