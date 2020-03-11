@@ -33,4 +33,4 @@ logging:
 security:
   oauth2:
     resource:
-      userInfoUri: http://localhost:8901/auth/user
+      userInfoUri: http://account-service:8080/accounts/user

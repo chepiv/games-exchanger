@@ -34,7 +34,6 @@ public class AccountController {
         this.accountCommonService = accountCommonService;
     }
 
-
     @GetMapping
     public ResponseEntity<List<Account>> getAllAccounts() {
         List<Account> accounts = accountCommonService.getAll();
@@ -57,7 +56,11 @@ public class AccountController {
     @GetMapping(value = "/user", produces = "application/json")
     public Map<String, Object> user(OAuth2Authentication user) {
         HashMap<String, Object> userInfo = new HashMap<>();
-        userInfo.put("user", user.getUserAuthentication().getPrincipal());
+        Object principal = user.getUserAuthentication().getPrincipal();
+        Account account = accountCommonService.getByLogin(((AccountPrincipal) principal).getUsername());
+
+        userInfo.put("user", principal);
+        userInfo.put("user-details", account);
         userInfo.put("authorities", AuthorityUtils.authorityListToSet(user.getUserAuthentication().getAuthorities()));
         return userInfo;
     }

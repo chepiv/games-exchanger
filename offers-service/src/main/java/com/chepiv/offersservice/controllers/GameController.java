@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by chepiv on 06/03/2020.
@@ -29,6 +30,13 @@ public class GameController {
     @GetMapping
     public ResponseEntity<List<Game>> getAll(){
         return new ResponseEntity<>(gameCommonService.getAllGames(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Game> getGameById(@PathVariable("id")Long id) {
+        Optional<Game> gameById = gameCommonService.getGameById(id);
+        return gameById.map(game -> new ResponseEntity<>(game, HttpStatus.OK))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping

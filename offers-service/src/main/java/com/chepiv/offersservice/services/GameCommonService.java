@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by chepiv on 06/03/2020.
@@ -35,8 +37,24 @@ public class GameCommonService {
         return gameRepository.save(game);
     }
 
-    public GameAccount addGameToPlayersLibrary(Long accountId, Long gameId) {
-        return gameAccountRepository.save(new GameAccount(new GameAccountPK(gameId, accountId)));
+    public Optional<Game> getGameById(Long id) {
+        return gameRepository.findById(id);
+    }
+
+    public GameAccount addGameToPlayersLibrary(Long accountId, Long gameId) { // TODO: 11.03.2020 add from account side also
+        Optional<Game> game = gameRepository.findById(gameId);
+        GameAccount gameAccount = new GameAccount(new GameAccountPK(gameId, accountId));
+        game.ifPresent(gameAccount::setGame);
+        return gameAccountRepository.save(gameAccount);
+    }
+
+    public List<Game> getAccountLibrary(Long accountId) {
+        List<GameAccount> gameAccountList = gameAccountRepository.findByIdAccountId(accountId);
+        return gameAccountList.stream()
+                .map(gameAccount -> gameRepository.findById(gameAccount.getId().getGameId()))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 
 }

@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "7878:7878"
+      - "7800:7800"
     volumes:
       - "${HOME}/.m2:/root/.m2"
     environment: # Pass environment variables to the service
