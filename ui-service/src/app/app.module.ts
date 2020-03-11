@@ -9,13 +9,15 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RegistrationComponent } from './registration/registration.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { GameDetailsComponent } from './game-details/game-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     UserDetailsComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    GameDetailsComponent
   ],
   imports: [
     BrowserModule,
