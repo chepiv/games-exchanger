@@ -2,7 +2,7 @@
   <form name="form" (ngSubmit)="f.form.valid && sendLoginRequest()" #f="ngForm" novalidate>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !login.valid }">
       <label for="username">Username</label>
-      <input id="username" class="form-control" type="text" name="username" [(ngModel)]="model.login"
+      <input autofocus id="username" class="form-control" type="text" name="username" [(ngModel)]="model.login"
              #login="ngModel" required/>
       <div *ngIf="f.submitted && !login.valid">Username is required</div>
     </div>

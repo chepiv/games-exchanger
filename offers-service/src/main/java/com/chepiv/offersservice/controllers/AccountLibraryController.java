@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,9 +38,9 @@ public class AccountLibraryController {
         this.gameCommonService = gameCommonService;
     }
 
-    @PostMapping
+    @PostMapping("/{gameId}")
     public ResponseEntity<GameAccount> addGameToAccountsLibraryV1(OAuth2Authentication user,
-                                                                  @RequestParam("gameId") Long gameId) {
+                                                                  @PathVariable("gameId") Long gameId) {
         return new ResponseEntity<>(gameCommonService.addGameToPlayersLibrary(AccountUtils.extractOauth2AccountId(user), gameId), HttpStatus.OK);
     }
 

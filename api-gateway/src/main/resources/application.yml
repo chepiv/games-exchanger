@@ -20,6 +20,9 @@ zuul:
     storage:
       path: /**
       url: http://storage-service:5858
+    games:
+      path: /**
+      url: http://offers-service:7878
 logging:
   level:
     org.springframework.security: DEBUG

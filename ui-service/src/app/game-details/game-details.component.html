@@ -10,23 +10,21 @@
       </aside>
       <aside class="col-sm-7">
         <article class="card-body p-5">
-          <h3 class="title mb-3">Original Version of Some product name</h3>
+          <h3 class="title mb-3">{{game.name}}</h3>
 
           <dl class="item-property">
             <dt>Description</dt>
-            <dd><p>Here goes description consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco </p></dd>
+            <dd><p>{{game.longDescription}}</p></dd>
           </dl>
 
           <dl class="param param-feature">
-            <dt>Model#</dt>
-            <dd>12345611</dd>
+            <dt>Platform</dt>
+            <dd></dd>
           </dl>  <!-- item-property-hor .// -->
 
           <dl class="param param-feature">
-            <dt>Color</dt>
-            <dd>Black and white</dd>
+            <dt>Ranking</dt>
+            <dd>{{game.ranking}}</dd>
           </dl>  <!-- item-property-hor .// -->
 
           <dl class="param param-feature">
@@ -36,9 +34,7 @@
 
 
           <hr>
-          <a href="#" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
-          <a href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> Add to
-            cart </a>
+          <a class="btn btn-lg btn-primary text-uppercase" (click)="addGameToLibrary()"> Add to library </a>
         </article> <!-- card-body.// -->
       </aside> <!-- col.// -->
     </div> <!-- row.// -->

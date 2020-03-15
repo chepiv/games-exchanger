@@ -10,6 +10,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { RegistrationComponent } from './registration/registration.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { GameDetailsComponent } from './game-details/game-details.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { GameDetailsComponent } from './game-details/game-details.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]
