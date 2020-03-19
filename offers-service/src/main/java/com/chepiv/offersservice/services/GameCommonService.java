@@ -48,6 +48,10 @@ public class GameCommonService {
         return gameAccountRepository.save(gameAccount);
     }
 
+    public void removeGameFromAccount(Long accountId, Long gameId) {
+        gameAccountRepository.deleteById(new GameAccountPK(gameId,accountId));
+    }
+
     public List<Game> getAccountLibrary(Long accountId) {
         List<GameAccount> gameAccountList = gameAccountRepository.findByIdAccountId(accountId);
         return gameAccountList.stream()

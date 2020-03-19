@@ -1,0 +1,15 @@
+<div class="list-group" style="alignment: center; margin: 5%">
+  <a class="list-group-item list-group-item-action align-items-start" style="width: 40%; align-content: center">
+    <div class="card" *ngFor="let game of games">
+      <img class="card-img-top" style="height: 40%;width: 30%" src="{{game.imageUrl}}" alt="Card image cap" (error)="this.game.imageUrl = gameImage">
+      <div class="card-body">
+        <a href="{{'game-details/'+game.id}}">
+          <h5 class="card-title">{{game.name}}</h5>
+        </a>
+        <p class="card-text">{{game.shortDescription}}</p>
+        <p class="card-text"><small class="text-muted">{{game.platform}}</small></p>
+        <button type="button" (click)="addGameToLibrary(game.id)" class="btn btn-success">Add to library</button>
+      </div>
+    </div>
+  </a>
+</div>

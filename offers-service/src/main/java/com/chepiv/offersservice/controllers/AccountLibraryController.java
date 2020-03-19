@@ -4,6 +4,7 @@ import com.chepiv.offersservice.domain.Game;
 import com.chepiv.offersservice.domain.GameAccount;
 import com.chepiv.offersservice.services.GameCommonService;
 import com.chepiv.offersservice.utils.AccountUtils;
+import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +30,7 @@ import java.util.Map;
  * Github:chepiv
  */
 @RestController
+@Slf4j
 @RequestMapping("library")
 public class AccountLibraryController {
 
@@ -41,7 +44,15 @@ public class AccountLibraryController {
     @PostMapping("/{gameId}")
     public ResponseEntity<GameAccount> addGameToAccountsLibraryV1(OAuth2Authentication user,
                                                                   @PathVariable("gameId") Long gameId) {
+        log.info("Adding game {}",gameId);
         return new ResponseEntity<>(gameCommonService.addGameToPlayersLibrary(AccountUtils.extractOauth2AccountId(user), gameId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{gameId}")
+    public ResponseEntity removeGameFromAccount(OAuth2Authentication user, @PathVariable("gameId") Long gameId) {
+        log.info("Deleting game {}", gameId);
+        gameCommonService.removeGameFromAccount(AccountUtils.extractOauth2AccountId(user),gameId);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping

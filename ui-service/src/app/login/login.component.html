@@ -1,4 +1,4 @@
-﻿<div class="login-form">
+﻿<div class="login-form" style="margin-top: 5%">
   <form name="form" (ngSubmit)="f.form.valid && sendLoginRequest()" #f="ngForm" novalidate>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !login.valid }">
       <label for="username">Username</label>

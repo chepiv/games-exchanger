@@ -33,6 +33,9 @@ public class Game {
     @Column(precision = 1, scale = 1)
     private Double ranking;
 
+    @Column
+    private String coverUrl;
+
     @ManyToOne
     private Platform platform;
 

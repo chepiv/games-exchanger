@@ -12,6 +12,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { GameDetailsComponent } from './game-details/game-details.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import { GamesLibraryComponent } from './games-library/games-library.component';
+import { AllGamesComponent } from './all-games/all-games.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import {ToastrModule} from 'ngx-toastr';
     LoginComponent,
     UserDetailsComponent,
     RegistrationComponent,
-    GameDetailsComponent
+    GameDetailsComponent,
+    GamesLibraryComponent,
+    AllGamesComponent
   ],
   imports: [
     BrowserModule,

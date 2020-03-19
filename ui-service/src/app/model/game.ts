@@ -5,6 +5,7 @@ export class Game {
   ranking: number;
   shortDescription: string;
   platform: string;
+  imageUrl: string;
 
 
 }

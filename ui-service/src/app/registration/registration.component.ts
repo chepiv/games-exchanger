@@ -3,6 +3,7 @@ import {Account} from '../model/account';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {Toast, ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -21,7 +22,8 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr: ToastrService
   ) {
   }
 
@@ -40,7 +42,7 @@ export class RegistrationComponent implements OnInit {
 
     this.http.post('http://localhost:8762/' + 'accounts/register', formData)
       .subscribe((data: any) => console.log(data),
-        err => alert('Unable to register'),
+        err => this.toastr.error('Unable to register', 'Unable to register'),
         () => {
           this.router.navigate(['/login']);
         });
