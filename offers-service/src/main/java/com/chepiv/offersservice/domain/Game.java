@@ -2,15 +2,15 @@ package com.chepiv.offersservice.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import java.util.UUID;
+import java.util.List;
 
 @Entity
 @Data
@@ -38,5 +38,8 @@ public class Game {
 
     @ManyToOne
     private Platform platform;
+
+    @ManyToMany(mappedBy = "games")
+    private List<Offer> offers;
 
 }
