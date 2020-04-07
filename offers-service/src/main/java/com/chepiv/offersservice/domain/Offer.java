@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.List;
@@ -18,7 +20,11 @@ import java.util.List;
 public class Offer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
+    private String title;
 
     @Column
     private String description;
@@ -29,6 +35,6 @@ public class Offer {
     @Column(nullable = false)
     private Long accountId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Game> games;
 }

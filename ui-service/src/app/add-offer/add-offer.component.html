@@ -1,0 +1,30 @@
+<div style="margin: 5%">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Offer title</label>
+      <input type="text" class="form-control" name="title" [(ngModel)]="offer.title" id="exampleFormControlInput1" placeholder="Title">
+    </div>
+
+    <div class="form-group">
+      <label>Select games</label>
+    </div>
+
+
+    <ng-multiselect-dropdown name="games"
+      [placeholder]="'Choose games'"
+      [data]="games"
+      [(ngModel)]="selectedItems"
+      [settings]="dropdownSettings"
+      (onSelect)="onItemSelect($event)"
+    >
+    </ng-multiselect-dropdown>
+
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Description</label>
+      <textarea class="form-control" [(ngModel)]="offer.description" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+
+
+<button type="submit" class="btn btn-primary">Register</button>
+</form>
+</div>

@@ -17,7 +17,10 @@ public class OfferDto {
 
     private String imageUrl;
 
+    private String title;
+
     private Long accountId;
 
     private List<Long> games;
+
 }

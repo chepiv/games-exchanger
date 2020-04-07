@@ -26,7 +26,6 @@ export class UserDetailsComponent implements OnInit {
       this.router.navigate(['']);
     } else {
       this.getUserByLogin();
-
     }
   }
 

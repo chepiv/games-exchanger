@@ -31,6 +31,10 @@ public class OfferCommonService {
         return offerRepository.save(map(offerDto));
     }
 
+    public Offer addAnOffer(Offer offerDto) {
+        return offerRepository.save(offerDto);
+    }
+
 
     private Offer map(OfferDto offerDto) {
         Offer offer = new Offer();

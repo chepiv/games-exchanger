@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Game} from '../model/game';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -24,7 +24,12 @@ export class GamesLibraryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllUsersGames();
+    if (this.token == null) {
+      this.router.navigate(['']);
+    } else {
+      this.getAllUsersGames();
+    }
+
   }
 
 

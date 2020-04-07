@@ -12,8 +12,10 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { GameDetailsComponent } from './game-details/game-details.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { GamesLibraryComponent } from './games-library/games-library.component';
 import { AllGamesComponent } from './all-games/all-games.component';
+import { AddOfferComponent } from './add-offer/add-offer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { AllGamesComponent } from './all-games/all-games.component';
     RegistrationComponent,
     GameDetailsComponent,
     GamesLibraryComponent,
-    AllGamesComponent
+    AllGamesComponent,
+    AddOfferComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { AllGamesComponent } from './all-games/all-games.component';
     ReactiveFormsModule,
     ImageCropperModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot(), // ToastrModule added,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
