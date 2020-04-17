@@ -6,4 +6,6 @@ export class Offer {
   description: string;
   imageUrl: string;
   games: Game[];
+  accountName: string;
+  accountId: number;
 }

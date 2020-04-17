@@ -35,6 +35,7 @@ public class OfferController {
     @PostMapping
     ResponseEntity<Offer> createAnOffer(@RequestBody Offer offerDto, OAuth2Authentication user) {
         offerDto.setAccountId(AccountUtils.extractOauth2AccountId(user));
+        offerDto.setAccountName(AccountUtils.extractLogin(user));
         return ResponseEntity.ok(offerCommonService.addAnOffer(offerDto));
     }
 

@@ -1,21 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {LoginComponent} from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { UserDetailsComponent } from './user-details/user-details.component';
+import {UserDetailsComponent} from './user-details/user-details.component';
 import {HttpClientModule} from '@angular/common/http';
-import { RegistrationComponent } from './registration/registration.component';
-import { ImageCropperModule } from 'ngx-image-cropper';
-import { GameDetailsComponent } from './game-details/game-details.component';
+import {RegistrationComponent} from './registration/registration.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
+import {GameDetailsComponent} from './game-details/game-details.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { GamesLibraryComponent } from './games-library/games-library.component';
-import { AllGamesComponent } from './all-games/all-games.component';
-import { AddOfferComponent } from './add-offer/add-offer.component';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import {GamesLibraryComponent} from './games-library/games-library.component';
+import {AllGamesComponent} from './all-games/all-games.component';
+import {AddOfferComponent} from './add-offer/add-offer.component';
+import {AllOffersComponent} from './all-offers/all-offers.component';
+import {NamePipe} from './all-offers/namePipe';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { AddOfferComponent } from './add-offer/add-offer.component';
     GameDetailsComponent,
     GamesLibraryComponent,
     AllGamesComponent,
-    AddOfferComponent
+    AddOfferComponent,
+    AllOffersComponent,
+    NamePipe
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,8 @@ import { AddOfferComponent } from './add-offer/add-offer.component';
     ImageCropperModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

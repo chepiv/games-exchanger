@@ -32,6 +32,9 @@ public class Offer {
     @Column
     private String imageUrl;
 
+    @Column
+    private String accountName;
+
     @Column(nullable = false)
     private Long accountId;
 

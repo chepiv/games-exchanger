@@ -7,6 +7,7 @@ import {GameDetailsComponent} from './game-details/game-details.component';
 import {GamesLibraryComponent} from './games-library/games-library.component';
 import {AllGamesComponent} from './all-games/all-games.component';
 import {AddOfferComponent} from './add-offer/add-offer.component';
+import {AllOffersComponent} from './all-offers/all-offers.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'library', component: GamesLibraryComponent},
   {path: 'games', component: AllGamesComponent},
   {path: 'add-offer', component: AddOfferComponent},
+  {path: 'offers', component: AllOffersComponent},
 ];
 
 @NgModule({
