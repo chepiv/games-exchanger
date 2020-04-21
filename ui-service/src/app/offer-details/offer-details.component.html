@@ -1,0 +1,50 @@
+<div class="container" style="margin: 5%">
+  <div class="card">
+    <div class="row">
+      <aside class="col-sm-5 border-right">
+        <article class="gallery-wrap">
+          <div class="img-big-wrap">
+            <div><img src="../../assets/default-game.png"></div>
+          </div> <!-- slider-product.// -->
+        </article> <!-- gallery-wrap .end// -->
+      </aside>
+      <aside class="col-sm-7">
+        <article class="card-body p-5">
+          <h3 class="title mb-3">{{offer.title}}</h3>
+
+          <dl class="item-property">
+            <dt>Description</dt>
+            <dd><p>{{offer.description}}</p></dd>
+          </dl>
+          <dl class="item-property">
+            <dt>Author</dt>
+            <dd><p>{{offer.accountName}}</p></dd>
+          </dl>
+
+          <dl class="param param-feature">
+            <dt>Games</dt>
+            <div class="container-fluid" >
+              <div class="row flex-nowrap" >
+                <div class="card" *ngFor="let game of offer.games">
+                  <img class="card-img-top" src="{{game.coverUrl}}" alt="Card image cap">
+                  <div class="card-body">
+                    <a href="/game-details/{{game.id}}"><h5 class="card-title">{{game.name}}</h5></a>
+<!--                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dl>  <!-- item-property-hor .// -->
+
+
+
+          <hr>
+<!--          <a class="btn btn-lg btn-primary text-uppercase" (click)="addGameToLibrary()"> Add to library </a>-->
+        </article> <!-- card-body.// -->
+      </aside> <!-- col.// -->
+    </div> <!-- row.// -->
+  </div> <!-- card.// -->
+
+
+</div>
+<!--container.//-->

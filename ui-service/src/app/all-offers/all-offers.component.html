@@ -15,7 +15,7 @@
             <img src="https://res.cloudinary.com/mhmd/image/upload/v1556485076/shoes-1_gthops.jpg"
                  alt="Generic placeholder image" width="200" class="mx-lg-3 order-2 order-lg-1">
             <div class="media-body order-2 order-lg-1">
-              <h5 class="mt-0 font-weight-bold mb-2">{{offer.title}}</h5>
+             <a href="/offer-details/{{offer.id}}" style="color: inherit"><h5 class="mt-0 font-weight-bold mb-2">{{offer.title}}</h5></a>
               <p class="font-italic text-muted mb-0 small">{{offer.description}}</p>
               <div class="d-flex align-items-center justify-content-between mt-1">
                 <h6 class="font-weight-bold my-2">{{offer.games | pluck}}</h6>

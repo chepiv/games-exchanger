@@ -19,6 +19,8 @@ import {AddOfferComponent} from './add-offer/add-offer.component';
 import {AllOffersComponent} from './all-offers/all-offers.component';
 import {NamePipe} from './all-offers/namePipe';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import { OfferDetailsComponent } from './offer-details/offer-details.component';
+import {Angular2ImageGalleryModule} from 'angular2-image-gallery';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
     AllGamesComponent,
     AddOfferComponent,
     AllOffersComponent,
-    NamePipe
+    NamePipe,
+    OfferDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added,
     NgMultiSelectDropDownModule.forRoot(),
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    Angular2ImageGalleryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

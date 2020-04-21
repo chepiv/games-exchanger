@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -25,6 +26,10 @@ public class OfferCommonService {
 
     public List<Offer> getAllOffers() {
         return offerRepository.findAll();
+    }
+
+    public Optional<Offer> getOffer(Long id) {
+        return offerRepository.findById(id);
     }
 
     public Offer addAnOffer(OfferDto offerDto) {

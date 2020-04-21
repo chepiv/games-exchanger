@@ -18,8 +18,8 @@ zuul:
       path: /oauth/**
       url: http://account-service:8080/oauth
     storage:
-      path: /**
-      url: http://storage-service:5858
+      path: /downloadFile/**
+      url: http://storage-service:5858/downloadFile
     games:
       path: /**
       url: http://offers-service:7878

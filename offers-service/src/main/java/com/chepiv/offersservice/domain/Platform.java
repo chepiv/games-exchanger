@@ -1,5 +1,6 @@
 package com.chepiv.offersservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +24,7 @@ public class Platform {
     @Column
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "platform")
     private List<Game> games;
 
