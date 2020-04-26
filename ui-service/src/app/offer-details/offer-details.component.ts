@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
-import {Game} from '../model/game';
 import {Offer} from '../model/offer';
 
 @Component({
@@ -15,6 +14,7 @@ export class OfferDetailsComponent implements OnInit {
   token: string;
   public id: string;
   offer: Offer;
+  offerImageUrl = '../../assets/default-game.png';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -28,6 +28,18 @@ export class OfferDetailsComponent implements OnInit {
     this.getOfferById();
   }
 
+  private getImageForOffer(offer: Offer) {
+    const gamesCovers = offer.games.map(game => game.coverUrl);
+    const find = gamesCovers.find(value => this.isNotNull(value));
+    if (find != null) {
+      this.offerImageUrl = find;
+    }
+  }
+
+  isNotNull(item: string) {
+    return item != null;
+  }
+
 
   getOfferById() {
     const url = 'http://localhost:8762/offers/' + this.id;
@@ -39,6 +51,7 @@ export class OfferDetailsComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.offer = data;
+        this.getImageForOffer(data);
       });
   }
 

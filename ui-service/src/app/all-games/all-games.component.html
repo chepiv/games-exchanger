@@ -1,15 +1,34 @@
-<div class="list-group" style="alignment: center; margin: 5%">
-  <a class="list-group-item list-group-item-action align-items-start" style="width: 40%; align-content: center">
-    <div class="card" *ngFor="let game of games">
-      <img class="card-img-top" style="height: 40%;width: 30%" src="{{game.imageUrl}}" alt="Card image cap" (error)="this.game.imageUrl = gameImage">
-      <div class="card-body">
-        <a href="{{'game-details/'+game.id}}">
-          <h5 class="card-title">{{game.name}}</h5>
-        </a>
-        <p class="card-text">{{game.shortDescription}}</p>
-        <p class="card-text"><small class="text-muted">{{game.platform}}</small></p>
-        <button type="button" (click)="addGameToLibrary(game.id)" class="btn btn-success">Add to library</button>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto" style="margin: 5%">
+      <div class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="term">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </div>
+      <!-- List group-->
+      <ul class="list-group shadow" *ngFor="let game of games | filter:term">
+
+        <!-- list group item-->
+        <li class="list-group-item">
+          <!-- Custom content-->
+          <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+            <img src="{{game.coverUrl}}" style="min-width: 10rem; max-width: 10rem"
+                 alt="Generic placeholder image" width="200" class="mx-lg-3 order-2 order-lg-1">
+            <div class="media-body order-2 order-lg-1">
+              <a href="/game-details/{{game.id}}" style="color: inherit"><h5 class="mt-0 font-weight-bold mb-2">{{game.name}}</h5></a>
+              <p class="font-italic text-muted mb-0 small">{{game.longDescription}}</p>
+              <div class="d-flex align-items-center justify-content-between mt-1">
+                <h6 class="font-weight-bold my-2">Rating: {{game.ranking}}</h6>
+              </div>
+            </div>
+
+          </div>
+          <!-- End -->
+        </li>
+        <!-- End -->
+      </ul>
+      <!-- End -->
     </div>
-  </a>
+  </div>
 </div>
+

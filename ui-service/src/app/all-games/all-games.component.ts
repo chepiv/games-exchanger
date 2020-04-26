@@ -15,6 +15,7 @@ export class AllGamesComponent implements OnInit {
   token: string;
   public id: string;
   games: Game[];
+  term: string;
   gameImage: any = '/assets/default-game.png';
 
   constructor(private route: ActivatedRoute,
