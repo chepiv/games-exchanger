@@ -1,0 +1,64 @@
+<div class="my-auto align" >
+
+<div class="container py-2" >
+  <div class="row mt-3" style="max-height: 40rem; min-height: 40rem; overflow-y: scroll">
+    <div class="col-lg-8 mx-auto" style="margin: 5%">
+      <!-- List group-->
+      <ul class="list-group shadow" *ngFor="let game of offer.games">
+
+        <!-- list group item-->
+        <li class="list-group-item">
+          <!-- Custom content-->
+          <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+            <img src="{{game.coverUrl}}" style="min-width: 10rem; max-width: 10rem"
+                 alt="Generic placeholder image" width="200" class="mx-lg-3 order-2 order-lg-1">
+            <div class="media-body order-2 order-lg-1">
+              <a href="/game-details/{{game.id}}" style="color: inherit"><h5 class="mt-0 font-weight-bold mb-2">{{game.name}}</h5></a>
+              <p class="font-italic text-muted mb-0 small">{{game.longDescription}}</p>
+              <div class="d-flex align-items-center justify-content-between mt-1">
+                <h6 class="font-weight-bold my-2">Rating: {{game.ranking}}</h6>
+              </div>
+            </div>
+
+          </div>
+          <!-- End -->
+        </li>
+        <!-- End -->
+      </ul>
+      <!-- End -->
+    </div>
+  </div>
+</div>
+
+<div class="container  text-center mt-1 mb-1 p-0"><i class="fa fa-exchange align-content-center fa-5x" aria-hidden="true"></i></div>
+
+  <div class="container py-2" >
+    <div class="row mt-3" style="max-height: 40rem; min-height: 40rem; overflow-y: scroll">
+      <div class="col-lg-8 mx-auto" style="margin: 5%">
+        <!-- List group-->
+        <ul class="list-group shadow" *ngFor="let game of userGames">
+
+          <!-- list group item-->
+          <li class="list-group-item">
+            <!-- Custom content-->
+            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+              <img src="{{game.coverUrl}}" style="min-width: 10rem; max-width: 10rem"
+                   alt="Generic placeholder image" width="200" class="mx-lg-3 order-2 order-lg-1">
+              <div class="media-body order-2 order-lg-1">
+                <a href="/game-details/{{game.id}}" style="color: inherit"><h5 class="mt-0 font-weight-bold mb-2">{{game.name}}</h5></a>
+                <p class="font-italic text-muted mb-0 small">{{game.longDescription}}</p>
+                <div class="d-flex align-items-center justify-content-between mt-1">
+                  <h6 class="font-weight-bold my-2">Rating: {{game.ranking}}</h6>
+                </div>
+              </div>
+
+            </div>
+            <!-- End -->
+          </li>
+          <!-- End -->
+        </ul>
+        <!-- End -->
+      </div>
+    </div>
+  </div>
+  </div>

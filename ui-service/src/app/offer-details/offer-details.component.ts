@@ -13,6 +13,7 @@ export class OfferDetailsComponent implements OnInit {
 
   token: string;
   public id: string;
+  currentUser: string;
   offer: Offer;
   offerImageUrl = '../../assets/default-game.png';
 
@@ -25,6 +26,7 @@ export class OfferDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
+    this.currentUser = sessionStorage.getItem('currentUser');
     this.getOfferById();
   }
 
@@ -38,6 +40,10 @@ export class OfferDetailsComponent implements OnInit {
 
   isNotNull(item: string) {
     return item != null;
+  }
+
+  navigateToExchangeOffer(offerId: number) {
+    this.router.navigate(['/exchange-offer/' + offerId]);
   }
 
 

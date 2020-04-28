@@ -39,7 +39,7 @@
 
 
           <hr>
-<!--          <a class="btn btn-lg btn-primary text-uppercase" (click)="addGameToLibrary()"> Add to library </a>-->
+          <button *ngIf="offer.accountName != currentUser" type="button" (click)="navigateToExchangeOffer(offer.id)" class="btn btn-primary">Exchange</button>
         </article> <!-- card-body.// -->
       </aside> <!-- col.// -->
     </div> <!-- row.// -->

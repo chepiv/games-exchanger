@@ -1,5 +1,6 @@
 package com.chepiv.offersservice.controllers;
 
+import com.chepiv.offersservice.domain.ExchangeOffer;
 import com.chepiv.offersservice.domain.Offer;
 import com.chepiv.offersservice.services.OfferCommonService;
 import com.chepiv.offersservice.utils.AccountUtils;
@@ -42,6 +43,11 @@ public class OfferController {
         offerDto.setAccountId(AccountUtils.extractOauth2AccountId(user));
         offerDto.setAccountName(AccountUtils.extractLogin(user));
         return ResponseEntity.ok(offerCommonService.addAnOffer(offerDto));
+    }
+
+    @PostMapping("/exchangeOffer")
+    ResponseEntity<ExchangeOffer> createExchangeOffer(@RequestBody ExchangeOffer exchangeOffer) {
+        return ResponseEntity.ok(offerCommonService.addExchangeOffer(exchangeOffer));
     }
 
 }

@@ -44,4 +44,8 @@ public class Game {
     @ManyToMany(mappedBy = "games")
     private List<Offer> offers;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "offeredGames")
+    private List<ExchangeOffer> exchangeOffers;
+
 }

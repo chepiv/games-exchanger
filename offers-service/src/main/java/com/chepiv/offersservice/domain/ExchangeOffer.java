@@ -1,0 +1,35 @@
+package com.chepiv.offersservice.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import java.util.List;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ExchangeOffer {
+
+    @Id
+    public Long id;
+
+    @ManyToOne
+    public Offer sourceOffer;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    public List<Game> offeredGames;
+
+    @Column
+    public Long accountId;
+
+    @Column
+    public String commentary;
+}

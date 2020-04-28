@@ -3,8 +3,8 @@
   <div class="card" style="width: 18rem;  display: inline-block; float: left; margin-right: 5%">
     <img class="card-img-top" src="{{profileImage}}" alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <h5 class="card-title">{{account.name}} {{account.surname}}</h5>
+      <p class="card-text">{{account.email}}</p>
     </div>
     <ul class="list-group list-group-flush">
       <h5 class="card-title">Login</h5>
@@ -12,10 +12,10 @@
       <h5 class="card-title">Email</h5>
       <li class="list-group-item">{{account.email}}</li>
     </ul>
-    <div class="card-body">
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
-    </div>
+<!--    <div class="card-body">-->
+<!--      <a href="#" class="card-link">Card link</a>-->
+<!--      <a href="#" class="card-link">Another link</a>-->
+<!--    </div>-->
   </div>
 
   <div class="list-group" style=" display: inline-block; float: left; margin-left: 5%">
