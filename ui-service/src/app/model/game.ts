@@ -6,6 +6,7 @@ export class Game {
   shortDescription: string;
   platform: string;
   coverUrl: string;
+  checked?: boolean;
 
 
 }

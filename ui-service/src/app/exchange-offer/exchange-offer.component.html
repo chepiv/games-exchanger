@@ -1,8 +1,9 @@
-<div class="my-auto align" >
+<div class="my-auto align m-5" >
 
-<div class="container py-2" >
+<div class="container py-2 mt-5" >
+  <h3 class="mt-0 font-weight-bold mb-2 text-center">Games In {{offer.accountName}}'s Offer</h3>
   <div class="row mt-3" style="max-height: 40rem; min-height: 40rem; overflow-y: scroll">
-    <div class="col-lg-8 mx-auto" style="margin: 5%">
+    <div class="col-lg-8 mx-auto">
       <!-- List group-->
       <ul class="list-group shadow" *ngFor="let game of offer.games">
 
@@ -33,10 +34,11 @@
 <div class="container  text-center mt-1 mb-1 p-0"><i class="fa fa-exchange align-content-center fa-5x" aria-hidden="true"></i></div>
 
   <div class="container py-2" >
+    <h3 class="mt-0 font-weight-bold mb-2 text-center">Your Games</h3>
     <div class="row mt-3" style="max-height: 40rem; min-height: 40rem; overflow-y: scroll">
       <div class="col-lg-8 mx-auto" style="margin: 5%">
         <!-- List group-->
-        <ul class="list-group shadow" *ngFor="let game of userGames">
+        <ul class="list-group shadow" *ngFor="let game of userGames; let i = index;">
 
           <!-- list group item-->
           <li class="list-group-item">
@@ -50,6 +52,7 @@
                 <div class="d-flex align-items-center justify-content-between mt-1">
                   <h6 class="font-weight-bold my-2">Rating: {{game.ranking}}</h6>
                 </div>
+                  <input type="checkbox" [(ngModel)]="userGames[i].checked">
               </div>
 
             </div>
@@ -61,4 +64,5 @@
       </div>
     </div>
   </div>
+  <div class="container  text-center mt-1 mb-1 p-0"><button type="button" class="btn btn-success" (click)="sendExchangeOffer()">Exchange</button></div>
   </div>
