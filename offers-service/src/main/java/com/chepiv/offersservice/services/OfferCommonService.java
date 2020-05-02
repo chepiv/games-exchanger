@@ -8,8 +8,10 @@ import com.chepiv.offersservice.dto.OfferDto;
 import com.chepiv.offersservice.repository.ExchangeOfferRepository;
 import com.chepiv.offersservice.repository.GameRepository;
 import com.chepiv.offersservice.repository.OfferRepository;
+import com.chepiv.offersservice.utils.AccountUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +41,11 @@ public class OfferCommonService {
 
     public Optional<Offer> getOffer(Long id) {
         return offerRepository.findById(id);
+    }
+
+    public List<Offer> getUserOffers(OAuth2Authentication user) {
+        Long aLong = AccountUtils.extractOauth2AccountId(user);
+        return offerRepository.findAllByAccountId(aLong);
     }
     
     public Offer addAnOffer(Offer offerDto) {

@@ -22,6 +22,7 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import { OfferDetailsComponent } from './offer-details/offer-details.component';
 import {Angular2ImageGalleryModule} from 'angular2-image-gallery';
 import { ExchangeOfferComponent } from './exchange-offer/exchange-offer.component';
+import { ReceivedOfferComponent } from './received-offer/received-offer.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ExchangeOfferComponent } from './exchange-offer/exchange-offer.componen
     AllOffersComponent,
     NamePipe,
     OfferDetailsComponent,
-    ExchangeOfferComponent
+    ExchangeOfferComponent,
+    ReceivedOfferComponent
   ],
   imports: [
     BrowserModule,

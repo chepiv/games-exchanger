@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("offers")
@@ -36,6 +37,12 @@ public class OfferController {
     @GetMapping("/{id}")
     ResponseEntity<Offer> getOffer(@PathVariable("id") Long id) {
         return ResponseEntity.of(offerCommonService.getOffer(id));
+    }
+
+    @GetMapping(value = "/user-offers", produces = "application/json")
+    ResponseEntity<List<Offer>> getUserOffers(OAuth2Authentication user) {
+        return ResponseEntity.ok(offerCommonService.getUserOffers(user));
+//        return ResponseEntity.ok(new Offer());
     }
 
     @PostMapping
