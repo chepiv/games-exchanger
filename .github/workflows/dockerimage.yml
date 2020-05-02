@@ -16,12 +16,12 @@ jobs:
     - uses: actions/checkout@v2
       name: Build the Docker image
     - id: account-service
-      run: docker build . --file /account-service/Dockerfile --tag account-service:$(date +%s)
+      run: docker build . --file account-service/Dockerfile --tag account-service:$(date +%s)
     - id: api-gateway
-      run: docker build . --file /api-gateway/Dockerfile --tag api-gateway:$(date +%s)
+      run: docker build . --file api-gateway/Dockerfile --tag api-gateway:$(date +%s)
     - id: discovery-service
-      run: docker build . --file /discovery-service/Dockerfile --tag discovery-service:$(date +%s)
+      run: docker build . --file discovery-service/Dockerfile --tag discovery-service:$(date +%s)
     - id: offers-service
-      run: docker build . --file /offers-service/Dockerfile --tag offers-service:$(date +%s)
+      run: docker build . --file offers-service/Dockerfile --tag offers-service:$(date +%s)
     - id: storage-service
-      run: docker build . --file /storage-service/Dockerfile --tag storage-service:$(date +%s)
+      run: docker build . --file storage-service/Dockerfile --tag storage-service:$(date +%s)
