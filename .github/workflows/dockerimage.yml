@@ -1,0 +1,79 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  account-service-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build and Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: chepiv/account-service
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        cache: true
+        workdir: ./account-service
+        dockerfile: Dockerfile
+    
+  api-gateway-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build and Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: chepiv/api-gateway
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        cache: true
+        workdir: ./api-gateway
+        dockerfile: Dockerfile
+  
+  discovery-service-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build and Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: chepiv/discovery-service
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        cache: true
+        workdir: ./discovery-service
+        dockerfile: Dockerfile
+        
+  offers-service-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build and Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: chepiv/offers-service
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        cache: true
+        workdir: ./offers-service
+        dockerfile: Dockerfile
+        
+          
+  storage-service-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build and Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: chepiv/storage-service
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        cache: true
+        workdir: ./offers-service
+        dockerfile: Dockerfile
