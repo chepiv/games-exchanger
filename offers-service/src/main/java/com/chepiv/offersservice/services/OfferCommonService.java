@@ -61,6 +61,14 @@ public class OfferCommonService {
         return exchangeOfferRepository.save(exchangeOffer);
     }
 
+    public Optional<ExchangeOffer> getExchangeOffer(Long id) {
+        return exchangeOfferRepository.findById(id);
+    }
+
+    public List<ExchangeOffer> getReceivedOffers(Long accountId) {
+        return exchangeOfferRepository.findAllReceivedOffers(accountId);
+    }
+
 
     private Offer map(OfferDto offerDto) {
         Offer offer = new Offer();

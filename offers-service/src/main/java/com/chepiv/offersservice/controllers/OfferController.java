@@ -58,4 +58,14 @@ public class OfferController {
         return ResponseEntity.ok(offerCommonService.addExchangeOffer(exchangeOffer));
     }
 
+    @GetMapping("/exchangeOffer/{id}")
+    ResponseEntity<ExchangeOffer> getExchangeOffer(@PathVariable("id") Long id) {
+        return ResponseEntity.of(offerCommonService.getExchangeOffer(id));
+    }
+
+    @GetMapping("/receivedOffers")
+    ResponseEntity<List<ExchangeOffer>> getReceivedOffers(OAuth2Authentication user) {
+        return ResponseEntity.ok(offerCommonService.getReceivedOffers(AccountUtils.extractOauth2AccountId(user)));
+    }
+
 }

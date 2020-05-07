@@ -1,3 +1,54 @@
-<p>
-  received-offer works!
-</p>
+<div class="container" style="margin: 5% auto;">
+  <div class="card">
+    <div class="row">
+      <aside class="col-sm-7 m-auto">
+        <article class="card-body p-5">
+          <dl class="param param-feature">
+            <dt>Your games from offer</dt>
+            <div class="container-fluid" >
+              <div class="row flex-nowrap" style="overflow-x: scroll">
+                <div class="card h-100"  *ngFor="let game of offer.sourceOffer.games">
+                  <div class="card-img-top" style="width: 9vw;height: 10vw;object-fit: cover; text-align: center"><img style="max-height: 100%;max-width: 100%" src="{{game.coverUrl}}" alt="Card image cap"></div>
+                  <div class="card-body">
+                    <a href="/game-details/{{game.id}}"><h5 class="card-title">{{game.name}}</h5></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dl>
+          <dl class="param param-feature">
+            <dt>Offered games to exchange</dt>
+            <div class="container-fluid" >
+              <div class="row flex-nowrap" style="overflow-x: scroll">
+                <div class="card h-100"  *ngFor="let game of offer.offeredGames">
+                  <div class="card-img-top" style="width: 9vw;height: 10vw;object-fit: cover; text-align: center"><img style="max-height: 100%;max-width: 100%" src="{{game.coverUrl}}" alt="Card image cap"></div>
+                  <div class="card-body">
+                    <a href="/game-details/{{game.id}}"><h5 class="card-title">{{game.name}}</h5></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dl>
+
+          <button  class="btn btn-success">Accept</button>
+          <button  class="btn btn-danger">Decline</button>
+        </article> <!-- card-body.// -->
+      </aside> <!-- col.// -->
+      <aside class="col-sm-5 border-left">
+        <article class="card-body">
+          <dl class="item-property">
+            <dt>Comment</dt>
+            <dd><p>{{offer.commentary}}</p></dd>
+          </dl>
+          <dl class="item-property">
+            <dt>Comment</dt>
+            <dd><p>{{offer.commentary}}</p></dd>
+          </dl>
+        </article> <!-- gallery-wrap .end// -->
+      </aside>
+    </div> <!-- row.// -->
+  </div> <!-- card.// -->
+
+
+</div>
+<!--container.//-->
