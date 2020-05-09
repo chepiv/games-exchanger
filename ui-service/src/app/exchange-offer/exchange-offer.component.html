@@ -2,7 +2,7 @@
 
 <div class="container py-2 mt-5" >
   <h3 class="mt-0 font-weight-bold mb-2 text-center">Games In {{offer.accountName}}'s Offer</h3>
-  <div class="row mt-3" style="max-height: 40rem; min-height: 40rem; overflow-y: scroll">
+  <div class="row mt-3" style="max-height: 20rem; min-height: 20rem; overflow-y: scroll">
     <div class="col-lg-8 mx-auto">
       <!-- List group-->
       <ul class="list-group shadow" *ngFor="let game of offer.games">
@@ -35,7 +35,7 @@
 
   <div class="container py-2" >
     <h3 class="mt-0 font-weight-bold mb-2 text-center">Your Games</h3>
-    <div class="row mt-3" style="max-height: 40rem; min-height: 40rem; overflow-y: scroll">
+    <div class="row mt-3" style="max-height: 20rem; min-height: 20rem; overflow-y: scroll">
       <div class="col-lg-8 mx-auto" style="margin: 5%">
         <!-- List group-->
         <ul class="list-group shadow" *ngFor="let game of userGames; let i = index;">
@@ -64,5 +64,9 @@
       </div>
     </div>
   </div>
+    <div class="form-group container py-2">
+      <label for="exampleFormControlTextarea1">Commentary</label>
+      <textarea class="form-control" [(ngModel)]="exchangeOffer.commentary" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
   <div class="container  text-center mt-1 mb-1 p-0"><button type="button" class="btn btn-success" (click)="sendExchangeOffer()">Exchange</button></div>
   </div>

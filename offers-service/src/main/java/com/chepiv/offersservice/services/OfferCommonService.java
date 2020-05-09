@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -58,6 +59,7 @@ public class OfferCommonService {
     }
 
     public ExchangeOffer addExchangeOffer(ExchangeOffer exchangeOffer) {
+        exchangeOffer.setDate(new Date(System.currentTimeMillis()));
         return exchangeOfferRepository.save(exchangeOffer);
     }
 

@@ -1,0 +1,26 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto" style="margin: 5%">
+      <!-- List group-->
+      <ul class="list-group shadow" *ngFor="let receivedOffer of receivedOffers">
+
+        <!-- list group item-->
+        <li class="list-group-item">
+          <!-- Custom content-->
+          <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+            <div class="media-body order-2 order-lg-1">
+              <div class="d-flex align-items-center justify-content-between mt-1">
+                <h6 class="font-weight-bold my-2">Exchange offer for your  offer: {{receivedOffer.sourceOffer.title}} from {{receivedOffer.accountName}}</h6>
+                <button class="btn btn-primary" (click)="navigateToOffer(receivedOffer.id)">Show offer</button>
+              </div>
+            </div>
+
+          </div>
+          <!-- End -->
+        </li>
+        <!-- End -->
+      </ul>
+      <!-- End -->
+    </div>
+  </div>
+</div>

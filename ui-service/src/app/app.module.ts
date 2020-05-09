@@ -23,6 +23,8 @@ import { OfferDetailsComponent } from './offer-details/offer-details.component';
 import {Angular2ImageGalleryModule} from 'angular2-image-gallery';
 import { ExchangeOfferComponent } from './exchange-offer/exchange-offer.component';
 import { ReceivedOfferComponent } from './received-offer/received-offer.component';
+import { ReceivedOffersComponent } from './received-offers/received-offers.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { ReceivedOfferComponent } from './received-offer/received-offer.componen
     NamePipe,
     OfferDetailsComponent,
     ExchangeOfferComponent,
-    ReceivedOfferComponent
+    ReceivedOfferComponent,
+    ReceivedOffersComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { ReceivedOfferComponent } from './received-offer/received-offer.componen
     ToastrModule.forRoot(), // ToastrModule added,
     NgMultiSelectDropDownModule.forRoot(),
     Ng2SearchPipeModule,
-    Angular2ImageGalleryModule
+    Angular2ImageGalleryModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

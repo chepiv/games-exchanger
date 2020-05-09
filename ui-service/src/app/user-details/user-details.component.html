@@ -41,12 +41,13 @@
           <div class="card h-100"  *ngFor="let offer of offers">
             <div class="card-img-top" style="width: 13vw;height: 10vw;object-fit: cover; text-align: center"><img style="max-height: 100%;max-width: 100%" src="{{offer.imageUrl}}" alt="Card image cap"></div>
             <div class="card-body">
-              <a href="/game-details/{{offer.id}}"><h5 class="card-title">{{offer.title}}</h5></a>
+              <a href="/offer-details/{{offer.id}}"><h5 class="card-title">{{offer.title}}</h5></a>
             </div>
           </div>
         </div>
       </div>
     </dl>
+    <!-- item-property-hor .// -->
   </div>
 
 </div>

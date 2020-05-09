@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {ExchangeOffer} from '../model/exchangeOffer';
+import {Account} from '../model/account';
 
 @Component({
   selector: 'app-received-offer',
@@ -15,6 +16,7 @@ export class ReceivedOfferComponent implements OnInit {
   public id: string;
   currentUser: string;
   offer: ExchangeOffer;
+  userWhoOffer: Account;
   offerImageUrl = '../../assets/default-game.png';
 
   constructor(private route: ActivatedRoute,
@@ -40,6 +42,20 @@ export class ReceivedOfferComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.offer = data;
+      }, error => (console.log(error)),
+        () => this.getUserByLogin(this.offer.accountName));
+  }
+
+  getUserByLogin(login: string) {
+    const url = 'http://localhost:8762/accounts/byLogin' + login;
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer' + this.token
+    });
+
+    this.http.get<Account>(url, {headers: reqHeader})
+      .subscribe((data) => {
+        console.log(data);
+        this.userWhoOffer = data;
       });
   }
 

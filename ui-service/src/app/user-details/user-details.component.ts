@@ -5,6 +5,7 @@ import {Account} from '../model/account';
 import {Game} from '../model/game';
 import {ToastrService} from 'ngx-toastr';
 import {Offer} from '../model/offer';
+import {ExchangeOffer} from '../model/exchangeOffer';
 
 @Component({
   selector: 'app-user-details',
@@ -18,6 +19,7 @@ export class UserDetailsComponent implements OnInit {
   profileImage: any;
   games: Game[];
   offers: Offer[];
+  receivedOffers: ExchangeOffer[];
   url = 'http://localhost:8762/downloadFile/' + this.account.imageUrl;
 
   constructor(private route: ActivatedRoute,
@@ -34,6 +36,7 @@ export class UserDetailsComponent implements OnInit {
       this.getUserByLogin();
       this.getAllUsersGames();
       this.getAllUsersOffers();
+      this.getAllReceivedOffers();
     }
   }
 
@@ -104,6 +107,19 @@ export class UserDetailsComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.offers = data;
+      });
+  }
+
+  getAllReceivedOffers() {
+    const url = 'http://localhost:8762/offers/receivedOffers';
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer' + this.token
+    });
+
+    this.http.get<ExchangeOffer[]>(url, {headers: reqHeader})
+      .subscribe((data) => {
+        console.log(data);
+        this.receivedOffers = data;
       });
   }
 

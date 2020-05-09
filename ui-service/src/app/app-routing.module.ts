@@ -11,6 +11,7 @@ import {AllOffersComponent} from './all-offers/all-offers.component';
 import {OfferDetailsComponent} from './offer-details/offer-details.component';
 import {ExchangeOfferComponent} from './exchange-offer/exchange-offer.component';
 import {ReceivedOfferComponent} from './received-offer/received-offer.component';
+import {ReceivedOffersComponent} from './received-offers/received-offers.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'offers', component: AllOffersComponent},
   {path: 'offer-details/:id', component: OfferDetailsComponent},
   {path: 'exchange-offer/:id', component: ExchangeOfferComponent},
-  {path: 'received-offer/:id', component: ReceivedOfferComponent}
+  {path: 'received-offer/:id', component: ReceivedOfferComponent},
+  {path: 'received-offers', component: ReceivedOffersComponent},
 ];
 
 @NgModule({

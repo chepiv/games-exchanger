@@ -72,7 +72,7 @@ public class AccountController {
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
-    @GetMapping("/{login}")
+    @GetMapping("byLogin/{login}")
     public ResponseEntity<Account> getUserByLogin(@PathVariable("login") String login) {
         Account account = accountCommonService.getByLogin(login);
         return new ResponseEntity<>(account, HttpStatus.OK);

@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -34,5 +35,16 @@ public class ExchangeOffer {
     public Long accountId;
 
     @Column
+    public String accountName;
+
+    @Column
+    public Date date;
+
+    @Column
     public String commentary;
+
+    @Column
+    public Boolean accepted;
+
+
 }

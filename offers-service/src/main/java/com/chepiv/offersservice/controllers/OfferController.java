@@ -55,6 +55,7 @@ public class OfferController {
     @PostMapping("/exchangeOffer")
     ResponseEntity<ExchangeOffer> createExchangeOffer(@RequestBody ExchangeOffer exchangeOffer, OAuth2Authentication user) {
         exchangeOffer.setAccountId(AccountUtils.extractOauth2AccountId(user));
+        exchangeOffer.setAccountName(AccountUtils.extractLogin(user));
         return ResponseEntity.ok(offerCommonService.addExchangeOffer(exchangeOffer));
     }
 
