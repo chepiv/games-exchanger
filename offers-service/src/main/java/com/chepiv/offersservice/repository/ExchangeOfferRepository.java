@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ExchangeOfferRepository extends JpaRepository<ExchangeOffer, Long> {
 
-    @Query("SELECT eo from ExchangeOffer eo WHERE eo.sourceOffer.accountId = :accountId")
+    @Query("SELECT eo from ExchangeOffer eo WHERE eo.sourceOffer.accountId = :accountId AND eo.accepted is null")
     List<ExchangeOffer> findAllReceivedOffers(@Param("accountId") Long accountId);
 }

@@ -3,6 +3,7 @@ package com.chepiv.offersservice.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,28 +24,29 @@ public class ExchangeOffer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     @ManyToOne
-    public Offer sourceOffer;
+    private Offer sourceOffer;
 
+    @ToString.Exclude
     @ManyToMany(cascade = CascadeType.MERGE)
-    public List<Game> offeredGames;
+    private List<Game> offeredGames;
 
     @Column
-    public Long accountId;
+    private Long accountId;
 
     @Column
-    public String accountName;
+    private String accountName;
 
     @Column
-    public Date date;
+    private Date date;
 
     @Column
-    public String commentary;
+    private String commentary;
 
     @Column
-    public Boolean accepted;
+    private Boolean accepted;
 
 
 }

@@ -43,11 +43,11 @@ export class ReceivedOfferComponent implements OnInit {
         console.log(data);
         this.offer = data;
       }, error => (console.log(error)),
-        () => this.getUserByLogin(this.offer.accountName));
+        () => this.getUserByLogin(this.offer.accountId));
   }
 
-  getUserByLogin(login: string) {
-    const url = 'http://localhost:8762/accounts/byLogin' + login;
+  getUserByLogin(login: number) {
+    const url = 'http://localhost:8762/accounts/byLogin/' + login;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -56,6 +56,18 @@ export class ReceivedOfferComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.userWhoOffer = data;
+      });
+  }
+
+  acceptOffer() {
+    const url = 'http://localhost:8762/offers/acceptOffer/' + this.id;
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer' + this.token
+    });
+
+    this.http.post(url, null, {headers: reqHeader})
+      .subscribe(data => {
+
       });
   }
 

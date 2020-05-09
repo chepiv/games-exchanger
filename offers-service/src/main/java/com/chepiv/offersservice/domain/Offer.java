@@ -3,6 +3,7 @@ package com.chepiv.offersservice.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.swing.text.StyledEditorKit;
 import java.util.List;
 
 @Entity
@@ -38,6 +40,9 @@ public class Offer {
     @Column(nullable = false)
     private Long accountId;
 
+    private boolean active = true;
+
+    @ToString.Exclude
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Game> games;
 }

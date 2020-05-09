@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OfferRepository extends JpaRepository<Offer, Long> {
-    List<Offer> findAllByAccountId(Long accountId);
+    List<Offer> findAllByAccountIdAndActiveIsTrue(Long accountId);
 }

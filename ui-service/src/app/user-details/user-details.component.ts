@@ -36,7 +36,6 @@ export class UserDetailsComponent implements OnInit {
       this.getUserByLogin();
       this.getAllUsersGames();
       this.getAllUsersOffers();
-      this.getAllReceivedOffers();
     }
   }
 
@@ -110,18 +109,6 @@ export class UserDetailsComponent implements OnInit {
       });
   }
 
-  getAllReceivedOffers() {
-    const url = 'http://localhost:8762/offers/receivedOffers';
-    const reqHeader = new HttpHeaders({
-      Authorization: 'Bearer' + this.token
-    });
-
-    this.http.get<ExchangeOffer[]>(url, {headers: reqHeader})
-      .subscribe((data) => {
-        console.log(data);
-        this.receivedOffers = data;
-      });
-  }
 
   removeGameFromLibrary(gameId: number) {
     const url = 'http://localhost:8762/library/' + gameId;

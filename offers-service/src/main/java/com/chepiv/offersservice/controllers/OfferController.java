@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("offers")
@@ -67,6 +66,15 @@ public class OfferController {
     @GetMapping("/receivedOffers")
     ResponseEntity<List<ExchangeOffer>> getReceivedOffers(OAuth2Authentication user) {
         return ResponseEntity.ok(offerCommonService.getReceivedOffers(AccountUtils.extractOauth2AccountId(user)));
+    }
+
+    @PostMapping("/acceptOffer/{id}")
+    ResponseEntity acceptOffer(@PathVariable("id") Long offerId) {
+        boolean b = offerCommonService.acceptOffer(offerId);
+        if (b) {
+            return ResponseEntity.ok("Accepted");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
     }
 
 }
