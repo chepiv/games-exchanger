@@ -39,7 +39,7 @@ public class OfferCommonService {
     }
 
     public List<Offer> getAllOffers() {
-        return offerRepository.findAll();
+        return offerRepository.findAllByActiveIsTrue();
     }
 
     public Optional<Offer> getOffer(Long id) {

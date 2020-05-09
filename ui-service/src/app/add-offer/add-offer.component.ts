@@ -55,13 +55,19 @@ export class AddOfferComponent implements OnInit {
     this.selectedItems.push(item);
   }
 
+  onItemDeSelect(item: any) {
+    console.log(item);
+    this.selectedItems = this.selectedItems.filter(value => value.name !== item.name);
+  }
+
   onSelectAll(items: any) {
     console.log(items);
   }
 
   onSubmit() {
     // this.offer.games = this.games.map(value => value.id);
-    this.offer.games = this.games;
+    const selectedItemsNames = this.selectedItems.map(value => value.name);
+    this.offer.games = this.games.filter(game => selectedItemsNames.includes(game.name));
     const url = 'http://localhost:8762/offers';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
@@ -74,7 +80,7 @@ export class AddOfferComponent implements OnInit {
   }
 
   getAllUsersGames() {
-    const url = 'http://localhost:8762/library';
+    const url =  'http://localhost:8762/library';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
