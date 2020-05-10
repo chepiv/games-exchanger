@@ -46,6 +46,21 @@ export class OfferDetailsComponent implements OnInit {
     this.router.navigate(['/exchange-offer/' + offerId]);
   }
 
+  deleteOffer() {
+    const url = 'http://localhost:8762/offers/' + this.id;
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer' + this.token
+    });
+
+    this.http.delete(url, {headers: reqHeader})
+      .subscribe(data => console.log(data),
+        error => this.toastr.error('Unable to delete offer', 'Error'),
+        () => {
+        this.toastr.success('Deleted offer', 'Success');
+        this.router.navigate(['/offers']);
+        });
+  }
+
 
   getOfferById() {
     const url = 'http://localhost:8762/offers/' + this.id;
