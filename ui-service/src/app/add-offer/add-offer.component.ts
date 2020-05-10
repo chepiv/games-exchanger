@@ -80,7 +80,10 @@ export class AddOfferComponent implements OnInit {
     this.http.post<Offer>(url, this.offer, {headers: reqHeader})
       .subscribe((data: any) => console.log(data),
         error => this.toastr.error('Unable to create offer, maybe its already in order', 'Error'),
-        () => this.toastr.success('Success', 'Success'));
+        () => {
+          this.toastr.success('Success', 'Success');
+          this.router.navigate(['/offers']);
+        });
   }
 
   getAllUsersGames() {

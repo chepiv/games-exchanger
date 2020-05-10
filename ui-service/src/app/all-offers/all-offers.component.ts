@@ -22,9 +22,14 @@ export class AllOffersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllOffers();
-    this.offers.forEach(value => value.games.map(value1 => value1.name));
-    console.log(this.offers.forEach(offer => offer.games));
+    if (this.token == null) {
+      this.router.navigate(['']);
+    } else {
+      this.getAllOffers();
+      this.offers.forEach(value => value.games.map(value1 => value1.name));
+      console.log(this.offers.forEach(offer => offer.games));
+    }
+
   }
 
   getAllOffers() {

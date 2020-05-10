@@ -26,7 +26,12 @@ export class AllGamesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllUsersGames();
+    if (this.token == null) {
+      this.router.navigate(['']);
+    } else {
+
+      this.getAllUsersGames();
+    }
   }
 
 

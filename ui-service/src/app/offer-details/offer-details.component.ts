@@ -25,9 +25,14 @@ export class OfferDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.currentUser = sessionStorage.getItem('currentUser');
-    this.getOfferById();
+    if (this.token == null) {
+      this.router.navigate(['']);
+    } else {
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.currentUser = sessionStorage.getItem('currentUser');
+      this.getOfferById();
+    }
+
   }
 
   private getImageForOffer(offer: Offer) {

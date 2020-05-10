@@ -22,7 +22,12 @@ export class ReceivedOffersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllReceivedOffers();
+    if (this.token == null) {
+      this.router.navigate(['']);
+    } else {
+      this.getAllReceivedOffers();
+    }
+
   }
 
   getAllReceivedOffers() {

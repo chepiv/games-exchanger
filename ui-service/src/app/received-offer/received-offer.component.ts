@@ -27,8 +27,13 @@ export class ReceivedOfferComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.getOfferById();
+    if (this.token == null) {
+      this.router.navigate(['']);
+    } else {
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.getOfferById();
+    }
+
   }
 
 
