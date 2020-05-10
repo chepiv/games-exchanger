@@ -71,4 +71,16 @@ export class ReceivedOfferComponent implements OnInit {
       });
   }
 
+  declineOffer() {
+    const url = 'http://localhost:8762/offers/declineOffer/' + this.id;
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer' + this.token
+    });
+
+    this.http.post(url, null, {headers: reqHeader})
+      .subscribe(data => {
+
+      });
+  }
+
 }

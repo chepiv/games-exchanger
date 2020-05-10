@@ -53,4 +53,9 @@ public class AccountLibraryController {
     public ResponseEntity<List<Game>> getAccountsLibrary(OAuth2Authentication user) {
         return ResponseEntity.ok(gameCommonService.getAccountLibrary(AccountUtils.extractOauth2AccountId(user)));
     }
+
+    @GetMapping("/libraryForExchange")
+    public ResponseEntity<List<Game>> getGamesAvailableForExchange(OAuth2Authentication user) {
+        return ResponseEntity.ok(gameCommonService.getAccountLibraryAvailableForExchange(AccountUtils.extractOauth2AccountId(user)));
+    }
 }

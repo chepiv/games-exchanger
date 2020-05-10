@@ -14,10 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -50,14 +54,28 @@ public class OfferCommonService {
         Long aLong = AccountUtils.extractOauth2AccountId(user);
         return offerRepository.findAllByAccountIdAndActiveIsTrue(aLong);
     }
-    
-    public Offer addAnOffer(Offer offerDto) {
+
+    public Offer addAnOffer(Offer offerDto) throws IllegalArgumentException {
         if (Objects.isNull(offerDto.getImageUrl())) {
             offerDto.setImageUrl(offerDto.getGames().stream().map(Game::getCoverUrl).findFirst().orElse(""));
         } else {
 //            storageClient.uploadFile() TODO: create an offer as account with file
         }
+        verifyIfGamesAlreadyInOffer(offerDto);
         return offerRepository.save(offerDto);
+    }
+
+    private void verifyIfGamesAlreadyInOffer(Offer offerDto) {
+        List<Long> gamesIds = offerDto.getGames().stream().map(Game::getId).collect(Collectors.toList());
+        List<Offer> allByAccountIdAndActiveIsTrue = offerRepository.findAllByAccountIdAndActiveIsTrue(offerDto.getAccountId());
+        Set<Long> gamesFromUserOffers = allByAccountIdAndActiveIsTrue.stream()
+                .map(Offer::getGames)
+                .flatMap(Collection::stream)
+                .map(Game::getId)
+                .collect(Collectors.toSet());
+        if (!Collections.disjoint(gamesIds, gamesFromUserOffers)) {
+            throw new IllegalArgumentException("Can't add games that already in other offers");
+        }
     }
 
     public ExchangeOffer addExchangeOffer(ExchangeOffer exchangeOffer) {
@@ -89,6 +107,18 @@ public class OfferCommonService {
         }
         return false;
     }
+
+    public boolean declineExchangeOfferOffer(Long exchageOfferId) {
+        Optional<ExchangeOffer> exchangeOffer = exchangeOfferRepository.findById(exchageOfferId);
+        if (exchangeOffer.isPresent()) {
+            ExchangeOffer offer = exchangeOffer.get();
+            offer.setAccepted(false);
+            exchangeOfferRepository.save(offer);
+            return true;
+        }
+        return false;
+    }
+
 
     private void exchangeGamesBetweenAccounts(Long firstAccountId, Long secondAccountId, List<Game> firstAccountGames, List<Game> secondAccountGames) {
         removeGamesFromAccount(firstAccountGames, firstAccountId);

@@ -75,12 +75,12 @@ export class AddOfferComponent implements OnInit {
 
     this.http.post<Offer>(url, this.offer, {headers: reqHeader})
       .subscribe((data: any) => console.log(data),
-        error => this.toastr.error('Unable to create offer', 'Error'),
+        error => this.toastr.error('Unable to create offer, maybe its already in order', 'Error'),
         () => this.toastr.success('Success', 'Success'));
   }
 
   getAllUsersGames() {
-    const url =  'http://localhost:8762/library';
+    const url =  'http://localhost:8762/library/libraryForExchange';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });

@@ -33,7 +33,7 @@ export class ExchangeOfferComponent implements OnInit {
   }
 
   getAllUsersGames() {
-    const url = 'http://localhost:8762/library';
+    const url = 'http://localhost:8762/library/libraryForExchange';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });

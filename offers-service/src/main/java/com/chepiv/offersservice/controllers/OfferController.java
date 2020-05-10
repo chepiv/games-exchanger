@@ -4,10 +4,12 @@ import com.chepiv.offersservice.domain.ExchangeOffer;
 import com.chepiv.offersservice.domain.Offer;
 import com.chepiv.offersservice.services.OfferCommonService;
 import com.chepiv.offersservice.utils.AccountUtils;
+import com.netflix.ribbon.proxy.annotation.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,14 +43,25 @@ public class OfferController {
     @GetMapping(value = "/user-offers", produces = "application/json")
     ResponseEntity<List<Offer>> getUserOffers(OAuth2Authentication user) {
         return ResponseEntity.ok(offerCommonService.getUserOffers(user));
-//        return ResponseEntity.ok(new Offer());
     }
 
     @PostMapping
-    ResponseEntity<Offer> createAnOffer(@RequestBody Offer offerDto, OAuth2Authentication user) {
+    ResponseEntity createAnOffer(@RequestBody Offer offerDto, OAuth2Authentication user) {
         offerDto.setAccountId(AccountUtils.extractOauth2AccountId(user));
         offerDto.setAccountName(AccountUtils.extractLogin(user));
-        return ResponseEntity.ok(offerCommonService.addAnOffer(offerDto));
+        try {
+            return ResponseEntity.ok(offerCommonService.addAnOffer(offerDto));
+        }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<Offer> deleteOffer(@PathVariable("id") Long id) {
+        offerCommonService.removeSourceOffer(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("/exchangeOffer")
@@ -73,6 +86,15 @@ public class OfferController {
         boolean b = offerCommonService.acceptOffer(offerId);
         if (b) {
             return ResponseEntity.ok("Accepted");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    }
+
+    @PostMapping("/declineOffer/{id}")
+    ResponseEntity declineOffer(@PathVariable("id") Long offerId) {
+        boolean b = offerCommonService.declineExchangeOfferOffer(offerId);
+        if (b) {
+            return ResponseEntity.ok("Declined success");
         }
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
     }

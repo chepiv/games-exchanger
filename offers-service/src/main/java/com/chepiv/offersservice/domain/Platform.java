@@ -3,6 +3,7 @@ package com.chepiv.offersservice.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +26,7 @@ public class Platform {
     private String name;
 
     @JsonIgnore
+    @ToString.Exclude
     @OneToMany(mappedBy = "platform")
     private List<Game> games;
 
