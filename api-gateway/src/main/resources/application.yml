@@ -23,6 +23,9 @@ zuul:
     games:
       path: /**
       url: http://offers-service:7878
+    email:
+      path: /**
+      url: http://email-service:9898
 logging:
   level:
     org.springframework.security: DEBUG

@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: email-service
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: www.4upakabra@gmail.com
+    password: vanya250299
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+
+server:
+  port: 9898
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.cloud.security: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG

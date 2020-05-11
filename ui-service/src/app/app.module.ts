@@ -25,7 +25,6 @@ import { ExchangeOfferComponent } from './exchange-offer/exchange-offer.componen
 import { ReceivedOfferComponent } from './received-offer/received-offer.component';
 import { ReceivedOffersComponent } from './received-offers/received-offers.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {CustomFormsModule} from 'ngx-custom-validators';
 
 @NgModule({
   declarations: [
@@ -56,8 +55,7 @@ import {CustomFormsModule} from 'ngx-custom-validators';
     NgMultiSelectDropDownModule.forRoot(),
     Ng2SearchPipeModule,
     Angular2ImageGalleryModule,
-    FontAwesomeModule,
-    CustomFormsModule
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -83,6 +83,23 @@ services:
       - backend
     container_name: storage-service
 
+  email-service:
+    build:
+      context: ./email-service
+      dockerfile: Dockerfile
+    ports:
+      - "9898:9898"
+      - "9890:9890"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
+    networks:
+      - backend
+    container_name: email-service
+
   offers-service:
     build:
       context: ./offers-service
