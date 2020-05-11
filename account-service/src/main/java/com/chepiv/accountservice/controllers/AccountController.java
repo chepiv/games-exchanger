@@ -72,9 +72,14 @@ public class AccountController {
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
-    @GetMapping("byLogin/{login}")
+    @GetMapping("/byLogin/{login}")
     public ResponseEntity<Account> getUserByLogin(@PathVariable("login") String login) {
         Account account = accountCommonService.getByLogin(login);
         return new ResponseEntity<>(account, HttpStatus.OK);
+    }
+
+    @GetMapping("/byId/{id}")
+    public ResponseEntity<Account> getUserById(@PathVariable("id") Long id) {
+        return ResponseEntity.of(accountCommonService.getById(id));
     }
 }

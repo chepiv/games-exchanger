@@ -24,7 +24,7 @@ zuul:
       path: /**
       url: http://offers-service:7878
     email:
-      path: /**
+      path: /email/**
       url: http://email-service:9898
 logging:
   level:

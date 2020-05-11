@@ -68,7 +68,7 @@ public class OfferController {
     ResponseEntity<ExchangeOffer> createExchangeOffer(@RequestBody ExchangeOffer exchangeOffer, OAuth2Authentication user) {
         exchangeOffer.setAccountId(AccountUtils.extractOauth2AccountId(user));
         exchangeOffer.setAccountName(AccountUtils.extractLogin(user));
-        return ResponseEntity.ok(offerCommonService.addExchangeOffer(exchangeOffer));
+        return ResponseEntity.ok(offerCommonService.addExchangeOffer(exchangeOffer, user));
     }
 
     @GetMapping("/exchangeOffer/{id}")
@@ -82,8 +82,8 @@ public class OfferController {
     }
 
     @PostMapping("/acceptOffer/{id}")
-    ResponseEntity acceptOffer(@PathVariable("id") Long offerId) {
-        boolean b = offerCommonService.acceptOffer(offerId);
+    ResponseEntity acceptOffer(@PathVariable("id") Long offerId,  OAuth2Authentication user) {
+        boolean b = offerCommonService.acceptOffer(offerId, user);
         if (b) {
             return ResponseEntity.ok("Accepted");
         }
@@ -91,8 +91,8 @@ public class OfferController {
     }
 
     @PostMapping("/declineOffer/{id}")
-    ResponseEntity declineOffer(@PathVariable("id") Long offerId) {
-        boolean b = offerCommonService.declineExchangeOfferOffer(offerId);
+    ResponseEntity declineOffer(@PathVariable("id") Long offerId, OAuth2Authentication user) {
+        boolean b = offerCommonService.declineExchangeOfferOffer(offerId,user);
         if (b) {
             return ResponseEntity.ok("Declined success");
         }

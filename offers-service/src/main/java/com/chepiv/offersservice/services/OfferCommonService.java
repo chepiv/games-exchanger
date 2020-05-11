@@ -1,6 +1,9 @@
 package com.chepiv.offersservice.services;
 
+import com.chepiv.offersservice.client.AccountClient;
+import com.chepiv.offersservice.client.EmailClient;
 import com.chepiv.offersservice.client.StorageClient;
+import com.chepiv.offersservice.client.reponsedata.Account;
 import com.chepiv.offersservice.domain.ExchangeOffer;
 import com.chepiv.offersservice.domain.Game;
 import com.chepiv.offersservice.domain.Offer;
@@ -12,6 +15,7 @@ import com.chepiv.offersservice.utils.AccountUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -31,14 +35,18 @@ public class OfferCommonService {
     private final GameRepository gameRepository;
     private final ExchangeOfferRepository exchangeOfferRepository;
     private final StorageClient storageClient;
+    private final EmailClient emailClient;
+    private final AccountClient accountClient;
     private final GameCommonService gameCommonService;
 
     @Autowired
-    public OfferCommonService(OfferRepository offerRepository, GameRepository gameRepository, ExchangeOfferRepository exchangeOfferRepository, StorageClient storageClient, GameCommonService gameCommonService) {
+    public OfferCommonService(OfferRepository offerRepository, GameRepository gameRepository, ExchangeOfferRepository exchangeOfferRepository, StorageClient storageClient, EmailClient emailClient, AccountClient accountClient, GameCommonService gameCommonService) {
         this.offerRepository = offerRepository;
         this.gameRepository = gameRepository;
         this.exchangeOfferRepository = exchangeOfferRepository;
         this.storageClient = storageClient;
+        this.emailClient = emailClient;
+        this.accountClient = accountClient;
         this.gameCommonService = gameCommonService;
     }
 
@@ -78,9 +86,52 @@ public class OfferCommonService {
         }
     }
 
-    public ExchangeOffer addExchangeOffer(ExchangeOffer exchangeOffer) {
+    public ExchangeOffer addExchangeOffer(ExchangeOffer exchangeOffer, OAuth2Authentication user) {
+
         exchangeOffer.setDate(new Date(System.currentTimeMillis()));
-        return exchangeOfferRepository.save(exchangeOffer);
+        ExchangeOffer save = exchangeOfferRepository.save(exchangeOffer);
+
+        notifyOwnerOfOfferByMail(exchangeOffer, user);
+
+        return save;
+    }
+
+    private void notifyOwnerOfOfferByMail(ExchangeOffer exchangeOffer, OAuth2Authentication user) {
+        try {
+            final OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) user.getDetails();
+            //token
+            String accessToken = details.getTokenValue();
+            Account ownerOfOffer = accountClient.getUserById(exchangeOffer.getSourceOffer().getAccountId(), "Bearer " + accessToken);
+            emailClient.sendEmail(ownerOfOffer.getEmail(), "You have received an offer", "You have received an offer for your offer: " + exchangeOffer.getSourceOffer().getTitle());
+        } catch (Exception e) {
+            log.warn("Unable to send email", e);
+        }
+    }
+
+    private void notifyThatExchangeOfferAccepted(ExchangeOffer exchangeOffer, OAuth2Authentication user) {
+        try {
+            final OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) user.getDetails();
+            //token
+            String accessToken = details.getTokenValue();
+            Account ownerOfOffer = accountClient.getUserById(exchangeOffer.getAccountId(), "Bearer " + accessToken);
+            emailClient.sendEmail(ownerOfOffer.getEmail(), "Your exchange offer ACCEPTED",
+                    "Your exchange offer for offer: " + exchangeOffer.getSourceOffer().getTitle() + " has been accepted. Games from offers have been exchanged");
+        } catch (Exception e) {
+            log.warn("Unable to send email", e);
+        }
+    }
+
+    private void notifyThatExchangeOfferDeclined(ExchangeOffer exchangeOffer, OAuth2Authentication user) {
+        try {
+            final OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) user.getDetails();
+            //token
+            String accessToken = details.getTokenValue();
+            Account ownerOfOffer = accountClient.getUserById(exchangeOffer.getAccountId(), "Bearer " + accessToken);
+            emailClient.sendEmail(ownerOfOffer.getEmail(), "Your exchange offer DECLINED",
+                    "Your exchange offer for offer: " + exchangeOffer.getSourceOffer().getTitle() + " has been declined.");
+        } catch (Exception e) {
+            log.warn("Unable to send email", e);
+        }
     }
 
     public Optional<ExchangeOffer> getExchangeOffer(Long id) {
@@ -91,7 +142,7 @@ public class OfferCommonService {
         return exchangeOfferRepository.findAllReceivedOffers(accountId);
     }
 
-    public boolean acceptOffer(Long exchangeOfferId) {
+    public boolean acceptOffer(Long exchangeOfferId, OAuth2Authentication user) {
         Optional<ExchangeOffer> exchangeOffer = exchangeOfferRepository.findById(exchangeOfferId);
         if (exchangeOffer.isPresent()) {
             ExchangeOffer offer = exchangeOffer.get();
@@ -103,17 +154,19 @@ public class OfferCommonService {
             removeSourceOffer(offer.getSourceOffer().getId());
             offer.setAccepted(true);
             exchangeOfferRepository.save(offer);
+            notifyThatExchangeOfferAccepted(offer, user);
             return true;
         }
         return false;
     }
 
-    public boolean declineExchangeOfferOffer(Long exchageOfferId) {
+    public boolean declineExchangeOfferOffer(Long exchageOfferId, OAuth2Authentication user) {
         Optional<ExchangeOffer> exchangeOffer = exchangeOfferRepository.findById(exchageOfferId);
         if (exchangeOffer.isPresent()) {
             ExchangeOffer offer = exchangeOffer.get();
             offer.setAccepted(false);
             exchangeOfferRepository.save(offer);
+            notifyThatExchangeOfferDeclined(offer, user);
             return true;
         }
         return false;

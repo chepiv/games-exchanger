@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Created by chepiv on 05/01/2020.
@@ -66,6 +67,10 @@ public class AccountCommonService implements UserDetailsService {
 
     public Account getByLogin(String login) {
         return accountRepository.findAccountByLogin(login);
+    }
+
+    public Optional<Account> getById(Long id) {
+        return accountRepository.findById(id);
     }
 
     public String hashPassword(String password){
