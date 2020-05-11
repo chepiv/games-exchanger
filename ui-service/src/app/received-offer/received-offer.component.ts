@@ -52,7 +52,7 @@ export class ReceivedOfferComponent implements OnInit {
   }
 
   getUserByLogin(login: number) {
-    const url = 'http://localhost:8762/accounts/byLogin/' + login;
+    const url = 'http://localhost:8762/accounts/byId/' + login;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });

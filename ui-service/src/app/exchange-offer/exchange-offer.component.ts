@@ -62,9 +62,13 @@ export class ExchangeOfferComponent implements OnInit {
     this.http.post<ExchangeOffer>(url, this.exchangeOffer, {headers: reqHeader})
       .subscribe((data: any) => console.log(data),
         error => this.toastr.error('Unable to create exchange offer', 'Error'),
-        () => this.toastr.success('Success', 'Success'));
-
+        () => {
+          this.toastr.success('Success', 'Success');
+          this.router.navigate(['/user-details']);
+        }
+        );
   }
+
 
   getOfferById() {
     const url = 'http://localhost:8762/offers/' + this.id;
