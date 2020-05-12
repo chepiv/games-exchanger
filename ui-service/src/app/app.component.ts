@@ -20,9 +20,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.token == null) {
-      this.router.navigate(['/login']);
-    }
   }
 
   logout() {
