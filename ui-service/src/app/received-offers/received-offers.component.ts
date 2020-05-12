@@ -3,6 +3,7 @@ import {ExchangeOffer} from '../model/exchangeOffer';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-received-offers',
@@ -31,7 +32,7 @@ export class ReceivedOffersComponent implements OnInit {
   }
 
   getAllReceivedOffers() {
-    const url = 'http://localhost:8762/offers/receivedOffers';
+    const url = environment.host + ':8762/offers/receivedOffers';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });

@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {Offer} from '../model/offer';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-offer-details',
@@ -52,7 +53,7 @@ export class OfferDetailsComponent implements OnInit {
   }
 
   deleteOffer() {
-    const url = 'http://localhost:8762/offers/' + this.id;
+    const url = environment.host + ':8762/offers/' + this.id;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -68,7 +69,7 @@ export class OfferDetailsComponent implements OnInit {
 
 
   getOfferById() {
-    const url = 'http://localhost:8762/offers/' + this.id;
+    const url = environment.host + ':8762/offers/' + this.id;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });

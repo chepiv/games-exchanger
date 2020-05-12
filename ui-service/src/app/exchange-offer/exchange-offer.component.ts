@@ -5,6 +5,7 @@ import {ToastrService} from 'ngx-toastr';
 import {Game} from '../model/game';
 import {Offer} from '../model/offer';
 import {ExchangeOffer} from '../model/exchangeOffer';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-exchange-offer',
@@ -38,7 +39,7 @@ export class ExchangeOfferComponent implements OnInit {
   }
 
   getAllUsersGames() {
-    const url = 'http://localhost:8762/library/libraryForExchange';
+    const url = environment.host + ':8762/library/libraryForExchange';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -51,7 +52,7 @@ export class ExchangeOfferComponent implements OnInit {
   }
 
   sendExchangeOffer() {
-    const url = 'http://localhost:8762/offers/exchangeOffer';
+    const url = environment.host + ':8762/offers/exchangeOffer';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -71,7 +72,7 @@ export class ExchangeOfferComponent implements OnInit {
 
 
   getOfferById() {
-    const url = 'http://localhost:8762/offers/' + this.id;
+    const url = environment.host + ':8762/offers/' + this.id;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });

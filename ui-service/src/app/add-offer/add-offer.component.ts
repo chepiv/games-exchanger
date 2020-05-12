@@ -4,6 +4,7 @@ import {Game} from '../model/game';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {Offer} from '../model/offer';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-add-offer',
@@ -72,7 +73,7 @@ export class AddOfferComponent implements OnInit {
       this.toastr.error('Choose at list one game', 'Error');
       return;
     }
-    const url = 'http://localhost:8762/offers';
+    const url = environment.host + ':8762/offers';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -87,7 +88,7 @@ export class AddOfferComponent implements OnInit {
   }
 
   getAllUsersGames() {
-    const url =  'http://localhost:8762/library/libraryForExchange';
+    const url =  environment.host + ':8762/library/libraryForExchange';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });

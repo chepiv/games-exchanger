@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Token} from './token';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   sendLoginRequest() {
-    const url = 'http://localhost:8762/oauth/token';
+    const url = environment.host + ':8762/oauth/token';
 
     const headers = {
       Authorization: 'Basic ' + btoa('eagleeye' + ':' + 'thisissecret'),
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
       .set('grant_type', 'webclient')
       .set('grant_type', 'password');
 
-    this.http.post('http://localhost:8762/' + 'oauth/token', body, {headers})
+    this.http.post(environment.host + ':8762/' + 'oauth/token', body, {headers})
       .subscribe((data: Token) => this.token = data,
         err => alert('Invalid Credentials'),
         () => {

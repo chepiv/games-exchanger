@@ -3,6 +3,7 @@ import {Offer} from '../model/offer';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-all-offers',
@@ -33,7 +34,7 @@ export class AllOffersComponent implements OnInit {
   }
 
   getAllOffers() {
-    const url = 'http://localhost:8762/offers';
+    const url = environment.host + ':8762/offers';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });

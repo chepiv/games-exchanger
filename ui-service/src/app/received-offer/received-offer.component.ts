@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {ExchangeOffer} from '../model/exchangeOffer';
 import {Account} from '../model/account';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-received-offer',
@@ -40,7 +41,7 @@ export class ReceivedOfferComponent implements OnInit {
 
 
   getOfferById() {
-    const url = 'http://localhost:8762/offers/exchangeOffer/' + this.id;
+    const url = environment.host + ':8762/offers/exchangeOffer/' + this.id;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -57,7 +58,7 @@ export class ReceivedOfferComponent implements OnInit {
   }
 
   getUserByLogin(login: number) {
-    const url = 'http://localhost:8762/accounts/byId/' + login;
+    const url = environment.host + ':8762/accounts/byId/' + login;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -70,7 +71,7 @@ export class ReceivedOfferComponent implements OnInit {
   }
 
   getUserFromSourceOffer(login: number) {
-    const url = 'http://localhost:8762/accounts/byId/' + login;
+    const url = environment.host + ':8762/accounts/byId/' + login;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -83,7 +84,7 @@ export class ReceivedOfferComponent implements OnInit {
   }
 
   acceptOffer() {
-    const url = 'http://localhost:8762/offers/acceptOffer/' + this.id;
+    const url = environment.host + ':8762/offers/acceptOffer/' + this.id;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -95,7 +96,7 @@ export class ReceivedOfferComponent implements OnInit {
   }
 
   declineOffer() {
-    const url = 'http://localhost:8762/offers/declineOffer/' + this.id;
+    const url = environment.host + ':8762/offers/declineOffer/' + this.id;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });

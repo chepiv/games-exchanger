@@ -6,6 +6,7 @@ import {Game} from '../model/game';
 import {ToastrService} from 'ngx-toastr';
 import {Offer} from '../model/offer';
 import {ExchangeOffer} from '../model/exchangeOffer';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-user-details',
@@ -20,7 +21,7 @@ export class UserDetailsComponent implements OnInit {
   games: Game[];
   offers: Offer[];
   receivedOffers: ExchangeOffer[];
-  url = 'http://localhost:8762/downloadFile/' + this.account.imageUrl;
+  url = environment.host + ':8762/downloadFile/' + this.account.imageUrl;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -40,7 +41,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getUserByLogin() {
-    const url = 'http://localhost:8762/accounts/user-details';
+    const url = environment.host + ':8762/accounts/user-details';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -58,7 +59,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getImage() {
-    const url = 'http://localhost:8762/downloadFile/' + this.account.imageUrl;
+    const url = environment.host + ':8762/downloadFile/' + this.account.imageUrl;
     this.http.get(url, {responseType: 'blob'})
       .subscribe(data => {
           this.createImageFromBlob(data);
@@ -84,7 +85,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getAllUsersGames() {
-    const url = 'http://localhost:8762/library';
+    const url = environment.host + ':8762/library';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -97,7 +98,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getAllUsersOffers() {
-    const url = 'http://localhost:8762/offers/user-offers';
+    const url = environment.host + ':8762/offers/user-offers';
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -111,7 +112,7 @@ export class UserDetailsComponent implements OnInit {
 
 
   removeGameFromLibrary(gameId: number) {
-    const url = 'http://localhost:8762/library/' + gameId;
+    const url = environment.host + ':8762/library/' + gameId;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token,
       'Content-type': 'application/json'

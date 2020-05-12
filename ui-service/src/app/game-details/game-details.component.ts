@@ -3,6 +3,7 @@ import {Game} from '../model/game';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-game-details',
@@ -34,7 +35,7 @@ export class GameDetailsComponent implements OnInit {
 
 
   getGameById() {
-    const url = 'http://localhost:8762/games/' + this.id;
+    const url = environment.host + ':8762/games/' + this.id;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token
     });
@@ -47,7 +48,7 @@ export class GameDetailsComponent implements OnInit {
   }
 
   addGameToLibrary() {
-    const url = 'http://localhost:8762/library/' + this.id;
+    const url = environment.host + ':8762/library/' + this.id;
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer' + this.token,
       'Content-type': 'application/json'

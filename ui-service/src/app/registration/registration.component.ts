@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {Toast, ToastrService} from 'ngx-toastr';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-registration',
@@ -40,7 +41,7 @@ export class RegistrationComponent implements OnInit {
       formData.append('file', blob);
     }
 
-    this.http.post('http://localhost:8762/' + 'accounts/register', formData)
+    this.http.post(environment.host + ':8762/' + 'accounts/register', formData)
       .subscribe((data: any) => console.log(data),
         err => this.toastr.error('Unable to register', 'Unable to register'),
         () => {
