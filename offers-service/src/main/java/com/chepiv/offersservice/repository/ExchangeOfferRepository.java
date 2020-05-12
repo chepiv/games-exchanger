@@ -11,4 +11,8 @@ public interface ExchangeOfferRepository extends JpaRepository<ExchangeOffer, Lo
 
     @Query("SELECT eo from ExchangeOffer eo WHERE eo.sourceOffer.accountId = :accountId AND eo.accepted is null")
     List<ExchangeOffer> findAllReceivedOffers(@Param("accountId") Long accountId);
+
+    @Query("SELECT eo from ExchangeOffer eo WHERE eo.accountId = :accountId AND eo.accepted is null")
+    List<ExchangeOffer> findAllSentOffers(@Param("accountId") Long accountId);
+
 }

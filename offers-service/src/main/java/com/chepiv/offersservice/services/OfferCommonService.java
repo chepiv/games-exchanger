@@ -142,6 +142,10 @@ public class OfferCommonService {
         return exchangeOfferRepository.findAllReceivedOffers(accountId);
     }
 
+    public List<ExchangeOffer> getSentOffers(Long accountId) {
+        return exchangeOfferRepository.findAllSentOffers(accountId);
+    }
+
     public boolean acceptOffer(Long exchangeOfferId, OAuth2Authentication user) {
         Optional<ExchangeOffer> exchangeOffer = exchangeOfferRepository.findById(exchangeOfferId);
         if (exchangeOffer.isPresent()) {

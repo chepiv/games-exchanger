@@ -17,6 +17,7 @@ export class ReceivedOfferComponent implements OnInit {
   currentUser: string;
   offer: ExchangeOffer;
   userWhoOffer: Account;
+  userFromSourceOffer: Account;
   offerImageUrl = '../../assets/default-game.png';
 
   constructor(private route: ActivatedRoute,
@@ -31,6 +32,7 @@ export class ReceivedOfferComponent implements OnInit {
       this.router.navigate(['']);
     } else {
       this.id = this.route.snapshot.paramMap.get('id');
+      this.currentUser = sessionStorage.getItem('currentUser');
       this.getOfferById();
     }
 
@@ -48,7 +50,10 @@ export class ReceivedOfferComponent implements OnInit {
         console.log(data);
         this.offer = data;
       }, error => (console.log(error)),
-        () => this.getUserByLogin(this.offer.accountId));
+        () => {
+          this.getUserByLogin(this.offer.accountId);
+          this.getUserFromSourceOffer(this.offer.sourceOffer.accountId);
+        });
   }
 
   getUserByLogin(login: number) {
@@ -61,6 +66,19 @@ export class ReceivedOfferComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.userWhoOffer = data;
+      });
+  }
+
+  getUserFromSourceOffer(login: number) {
+    const url = 'http://localhost:8762/accounts/byId/' + login;
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer' + this.token
+    });
+
+    this.http.get<Account>(url, {headers: reqHeader})
+      .subscribe((data) => {
+        console.log(data);
+        this.userFromSourceOffer = data;
       });
   }
 

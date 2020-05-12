@@ -4,7 +4,7 @@
       <aside class="col-sm-7 m-auto">
         <article class="card-body p-5">
           <dl class="param param-feature">
-            <dt>Your games from offer</dt>
+            <dt>{{userFromSourceOffer.login}}'s games from offer</dt>
             <div class="container-fluid" >
               <div class="row flex-nowrap" style="overflow-x: scroll">
                 <div class="card h-100"  *ngFor="let game of offer.sourceOffer.games">
@@ -17,7 +17,7 @@
             </div>
           </dl>
           <dl class="param param-feature">
-            <dt>Offered games to exchange</dt>
+            <dt>{{userWhoOffer.login}}'s offers games for exchange</dt>
             <div class="container-fluid" >
               <div class="row flex-nowrap" style="overflow-x: scroll">
                 <div class="card h-100"  *ngFor="let game of offer.offeredGames">
@@ -30,8 +30,8 @@
             </div>
           </dl>
 
-          <button (click)="acceptOffer()"  class="btn btn-success">Accept</button>
-          <button (click)="declineOffer()" class="btn btn-danger">Decline</button>
+          <button *ngIf="currentUser === offer.sourceOffer.accountName" (click)="acceptOffer()"  class="btn btn-success">Accept</button>
+          <button *ngIf="currentUser === offer.sourceOffer.accountName" (click)="declineOffer()" class="btn btn-danger">Decline</button>
         </article> <!-- card-body.// -->
       </aside> <!-- col.// -->
       <aside class="col-sm-5 border-left">

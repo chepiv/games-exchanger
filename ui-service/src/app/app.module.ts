@@ -25,6 +25,7 @@ import { ExchangeOfferComponent } from './exchange-offer/exchange-offer.componen
 import { ReceivedOfferComponent } from './received-offer/received-offer.component';
 import { ReceivedOffersComponent } from './received-offers/received-offers.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { SentOffersComponent } from './sent-offers/sent-offers.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     OfferDetailsComponent,
     ExchangeOfferComponent,
     ReceivedOfferComponent,
-    ReceivedOffersComponent
+    ReceivedOffersComponent,
+    SentOffersComponent
   ],
   imports: [
     BrowserModule,

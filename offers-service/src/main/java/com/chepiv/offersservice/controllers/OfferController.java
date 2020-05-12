@@ -81,6 +81,11 @@ public class OfferController {
         return ResponseEntity.ok(offerCommonService.getReceivedOffers(AccountUtils.extractOauth2AccountId(user)));
     }
 
+    @GetMapping("/sentOffers")
+    ResponseEntity<List<ExchangeOffer>> getSentOffers(OAuth2Authentication user) {
+        return ResponseEntity.ok(offerCommonService.getSentOffers(AccountUtils.extractOauth2AccountId(user)));
+    }
+
     @PostMapping("/acceptOffer/{id}")
     ResponseEntity acceptOffer(@PathVariable("id") Long offerId,  OAuth2Authentication user) {
         boolean b = offerCommonService.acceptOffer(offerId, user);
