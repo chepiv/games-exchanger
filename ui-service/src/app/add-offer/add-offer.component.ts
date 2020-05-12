@@ -67,8 +67,7 @@ export class AddOfferComponent implements OnInit {
 
   onSubmit() {
     // this.offer.games = this.games.map(value => value.id);
-    const selectedItemsNames = this.selectedItems.map(value => value.name);
-    this.offer.games = this.games.filter(game => selectedItemsNames.includes(game.name));
+    this.offer.games = this.games.filter(game => this.selectedItems.includes(game.name));
     if (this.offer.games === null || this.offer.games.length === 0) {
       this.toastr.error('Choose at list one game', 'Error');
       return;
