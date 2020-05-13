@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: chat-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: admin
+    url: jdbc:mysql://offers-db:3308/chat_service?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  session:
+    jdbc:
+      initialize-schema: always
+server:
+  port: 4848
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.cloud.security: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://account-service:8080/accounts/user

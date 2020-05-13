@@ -92,7 +92,12 @@ export class ReceivedOfferComponent implements OnInit {
     this.http.post(url, null, {headers: reqHeader})
       .subscribe(data => {
 
-      });
+      },
+        error => this.toastr.error('Unable to accept offer', 'Error'),
+        () => {
+        this.toastr.success('Offer accepted', 'Success');
+        this.router.navigate(['/user-details']);
+        });
   }
 
   declineOffer() {
@@ -104,6 +109,11 @@ export class ReceivedOfferComponent implements OnInit {
     this.http.post(url, null, {headers: reqHeader})
       .subscribe(data => {
 
+      },
+      error => this.toastr.error('Unable to decline offer', 'Error'),
+      () => {
+        this.toastr.success('Offer declined', 'Success');
+        this.router.navigate(['/user-details']);
       });
   }
 

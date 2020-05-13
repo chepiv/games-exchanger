@@ -25,7 +25,10 @@ zuul:
       url: http://offers-service:7878
     email:
       path: /email/**
-      url: http://email-service:9898
+      url: http://email-service:9898/email/
+    chat:
+      path: /message/**
+      url: http://chat-service:4848/message/
 logging:
   level:
     org.springframework.security: DEBUG
