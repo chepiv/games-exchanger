@@ -1,5 +1,6 @@
 package com.chepiv.chatservice.controllers;
 
+import com.chepiv.chatservice.dto.MessageDto;
 import com.chepiv.chatservice.model.Message;
 import com.chepiv.chatservice.service.MessageService;
 import com.chepiv.chatservice.utils.AccountUtils;
@@ -34,13 +35,14 @@ public class MessageRestController {
     }
 
     @GetMapping("/history/{offerId}")
-    public ResponseEntity<List<Message>> getHistoryForOffer(@PathVariable("offerId") Long offerId) {
+    public ResponseEntity<List<MessageDto>> getHistoryForOffer(@PathVariable("offerId") Long offerId) {
         return ResponseEntity.ok(messageService.getHistoryForOffer(offerId));
     }
 
     @PostMapping
     public ResponseEntity<Message> postMessage(@RequestBody Message message, OAuth2Authentication user) {
         message.setAccountId(AccountUtils.extractOauth2AccountId(user));
+        message.setAccountName(AccountUtils.extractLogin(user));
         return ResponseEntity.ok(messageService.postMessage(message));
     }
 }

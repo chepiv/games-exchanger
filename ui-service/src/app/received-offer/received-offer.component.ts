@@ -5,6 +5,9 @@ import {ToastrService} from 'ngx-toastr';
 import {ExchangeOffer} from '../model/exchangeOffer';
 import {Account} from '../model/account';
 import {environment} from '../../environments/environment';
+import {Message} from '../model/message';
+import {interval} from 'rxjs';
+
 
 @Component({
   selector: 'app-received-offer',
@@ -19,6 +22,9 @@ export class ReceivedOfferComponent implements OnInit {
   offer: ExchangeOffer;
   userWhoOffer: Account;
   userFromSourceOffer: Account;
+  historyMessages: Message[];
+  messageToSend: Message = {} as Message;
+  textToSend: string;
   offerImageUrl = '../../assets/default-game.png';
 
   constructor(private route: ActivatedRoute,
@@ -35,6 +41,12 @@ export class ReceivedOfferComponent implements OnInit {
       this.id = this.route.snapshot.paramMap.get('id');
       this.currentUser = sessionStorage.getItem('currentUser');
       this.getOfferById();
+      this.getMessageHistory();
+      interval(5000)
+        .subscribe((val) => {
+          this.getMessageHistory();
+        });
+
     }
 
   }
@@ -109,12 +121,47 @@ export class ReceivedOfferComponent implements OnInit {
     this.http.post(url, null, {headers: reqHeader})
       .subscribe(data => {
 
-      },
-      error => this.toastr.error('Unable to decline offer', 'Error'),
-      () => {
-        this.toastr.success('Offer declined', 'Success');
-        this.router.navigate(['/user-details']);
+        },
+        error => this.toastr.error('Unable to decline offer', 'Error'),
+        () => {
+          this.toastr.success('Offer declined', 'Success');
+          this.router.navigate(['/user-details']);
+        });
+  }
+
+  sendMessage(text: string) {
+    const url = environment.host + ':8762/message';
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer' + this.token
+    });
+
+    this.messageToSend.exchangeOfferId = Number(this.id);
+    this.messageToSend.messageText = text;
+
+    this.http.post(url, this.messageToSend, {headers: reqHeader})
+      .subscribe(data => {
+          this.getMessageHistory();
+        },
+        error => this.toastr.error('Unable to send message', 'Error'),
+        () => {
+          this.toastr.success('Message sent', 'Success');
+        });
+  }
+
+  getMessageHistory() {
+    const url = environment.host + ':8762/message/history/' + this.id;
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer' + this.token
+    });
+
+    this.http.get<Message[]>(url, {headers: reqHeader})
+      .subscribe((data) => {
+        this.historyMessages = data;
       });
   }
 
+  handleOnChange($event: Event) {
+    // @ts-ignore
+    this.textToSend = $event.data;
+  }
 }

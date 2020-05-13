@@ -1,7 +1,7 @@
 <div class="container" style="margin: 5% auto;">
   <div class="card">
     <div class="row">
-      <aside class="col-sm-7 m-auto">
+      <aside class="col-sm-7 mt-3">
         <article class="card-body p-5">
           <dl class="param param-feature">
             <dt>{{userFromSourceOffer.login}}'s games from offer</dt>
@@ -52,7 +52,53 @@
             <dt>User's email</dt>
             <dd><p>{{userWhoOffer.email}}</p></dd>
           </dl>
-        </article> <!-- gallery-wrap .end// -->
+        </article>
+
+
+
+
+
+
+
+          <div class="messaging">
+            <div class="inbox_msg">
+              <div class="inbox_people">
+                <div class="headind_srch">
+                  <div class="recent_heading">
+                    <h4>Chat</h4>
+                  </div>
+                </div>
+              <div class="mesgs">
+                <div class="msg_history" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                  <div  *ngFor="let message of historyMessages">
+                    <div [ngClass]="(message.accountId === offer.accountId)?'incoming_msg':'outgoing_msg'" >
+                      <div [ngClass]="(message.accountId === offer.accountId)?'received_msg':'sent_msg'">
+                        <div class="received_withd_msg" [ngClass]="(message.accountId === offer.accountId)?'received_withd_msg':''">
+                          <p>{{message.messageText}}</p>
+                          <span class="time_date">{{message.date}} | {{message.accountName}}</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+<!--                  <div class="outgoing_msg">-->
+<!--                    <div class="sent_msg">-->
+<!--                      <p>Test which is a new approach to have all-->
+<!--                        solutions</p>-->
+<!--                      <span class="time_date"> 11:01 AM    |    June 9</span> </div>-->
+<!--                  </div>-->
+                </div>
+                <div class="type_msg">
+                  <div class="input_msg_write">
+                    <input id="textToSend" type="text" [value]="textToSend" #textToSendFromTemp class="write_msg" placeholder="Type a message" />
+                    <button class="msg_send_btn" (click)="sendMessage(textToSendFromTemp.value)" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+
+
+          </div>
       </aside>
     </div> <!-- row.// -->
   </div> <!-- card.// -->
