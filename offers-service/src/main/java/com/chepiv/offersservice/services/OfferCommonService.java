@@ -189,6 +189,7 @@ public class OfferCommonService {
         if (sourceOffer.isPresent()) {
             Offer offer = sourceOffer.get();
             offer.setActive(false);
+            offerRepository.save(offer);
         }
     }
 
